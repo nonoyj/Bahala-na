@@ -97,10 +97,11 @@ namespace BahalaNa
         public void ChoosePassive(Card card, Choice choice)
         {
             if (Run == null) return;
+            // Resolve only — the Outcome screen's Continue advances to the next card
+            // (otherwise a passive choice would advance twice).
             LastOutcome = Resolve(card, choice, null);
             LastRoll = null;
             LastChoiceWasPassive = true;
-            NextCard();
         }
 
         public bool ReqOk(Card c)
