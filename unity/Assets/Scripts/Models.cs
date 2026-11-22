@@ -138,13 +138,12 @@ namespace BahalaNa
         public List<Choice> choices;
         public string callback;
 
-        [JsonIgnore] public Card card; // set by ContentDatabase after load
         [JsonIgnore] public Choice roll_choice; // cached first choice with a roll
         [JsonIgnore] public bool roll_clears_utang; // cached from the honest "Hindi." outcome
 
-        public void Bind(Card owner)
+        /// <summary>Cache the primary roll choice (called by ContentDatabase after load).</summary>
+        public void Bind()
         {
-            card = owner;
             roll_choice = null;
             roll_clears_utang = false;
             if (choices == null) return;

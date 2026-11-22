@@ -67,7 +67,7 @@ namespace BahalaNa.UI
             tmp.color = color ?? Ink;
             tmp.alignment = align;
             tmp.richText = true;
-            tmp.enableWordWrapping = true;
+            tmp.textWrappingMode = TextWrappingModes.Normal;
             if (bold) tmp.fontStyle = FontStyles.Bold;
             var rt = tmp.GetComponent<RectTransform>();
             rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one;
@@ -139,7 +139,7 @@ namespace BahalaNa.UI
             var onImg = onGo.AddComponent<Image>();
             onImg.color = value ? UIBuilder.Teal : UIBuilder.Line;
             tog.targetGraphic = onImg;
-            tog.transition = Toggle.Transition.None;
+            tog.transition = UnityEngine.UI.Toggle.Transition.None;
             tog.isOn = value;
             tog.onValueChanged.AddListener(v =>
             {

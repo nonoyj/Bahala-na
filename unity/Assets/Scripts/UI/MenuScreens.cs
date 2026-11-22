@@ -105,7 +105,7 @@ namespace BahalaNa.UI
             rolled = true;
             int roll = Dice.Roll(6);
             bg = GameApp.Content.Backgrounds.Find(b => b.roll == roll) ?? GameApp.Content.Backgrounds[0];
-            foreach (Transform t in resultArea) Destroy(t.gameObject);
+            foreach (Transform t in resultArea) UnityEngine.Object.Destroy(t.gameObject);
 
             var card = new GameObject("BgCard", typeof(RectTransform));
             card.transform.SetParent(resultArea, false);

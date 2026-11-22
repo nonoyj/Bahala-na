@@ -284,7 +284,7 @@ namespace BahalaNa.UI
         private void Roll()
         {
             result = GameApp.Game.ComputeRoll(card, choice, useKasama, useEchoes);
-            foreach (Transform t in resultArea) Destroy(t.gameObject);
+            foreach (Transform t in resultArea) UnityEngine.Object.Destroy(t.gameObject);
             var v = UIBuilder.VList(resultArea, 4f);
 
             var color = result.success ? UIBuilder.Green : UIBuilder.Red;
