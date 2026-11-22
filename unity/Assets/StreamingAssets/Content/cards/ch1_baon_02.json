@@ -1,0 +1,87 @@
+{
+  "id": "ch1_baon_02",
+  "chapter": 1,
+  "pool": "ch1",
+  "title": "Baon",
+  "title_en": "Lunch Money",
+  "tags": [
+    "school",
+    "komunidad",
+    "pera"
+  ],
+  "requires": null,
+  "setup": "Tanghalian na. Si Rico, ang kaklaseng laging maaga, ay walang baon — nakalimutan daw ng nanay niya. May sobra kang tinapay at itlog. Tumingin siya sa pagkain mo, tapos sa'yo.",
+  "setup_en": "It's lunchtime. Rico, the classmate who always arrives early, has no baon — he forgot, his mother said. You have extra bread and egg. He looks at your food, then at you.",
+  "choices": [
+    {
+      "label": "Hati tayo.",
+      "label_en": "Let's share.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 8
+      },
+      "success": {
+        "text": "Natawanan ni Rico. Magkasama kayong kumain.",
+        "text_en": "Rico laughs with relief. You eat together.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "flags": [
+            "shared_food"
+          ]
+        }
+      },
+      "fail": {
+        "text": "Nahiya siya, pero natulungan mo pa rin siya.",
+        "text_en": "He's embarrassed, but you still helped him.",
+        "effects": {
+          "flags": [
+            "shared_food"
+          ]
+        }
+      }
+    },
+    {
+      "label": "Palit tayo ng meryenda.",
+      "label_en": "Let's trade snacks.",
+      "type": "diskarte",
+      "roll": {
+        "stat": "diskarte",
+        "dc": 10
+      },
+      "success": {
+        "text": "Napasaya mo siya nang walang pang-iinsulto.",
+        "text_en": "You cheer him up without embarrassing him.",
+        "effects": {
+          "stats": {
+            "pera": 1,
+            "komunidad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "'Ayaw ko ng palit,' sabi ni Rico. Mababang loob siya.",
+        "text_en": "'I don't want a trade,' Rico says. He's proud.",
+        "effects": {
+          "flags": [
+            "rico_proud"
+          ]
+        }
+      }
+    },
+    {
+      "label": "Hindi ko napansin.",
+      "label_en": "I didn't notice.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "looked_away"
+        ]
+      }
+    }
+  ],
+  "callback": "shared_food / looked_away -> Ch2 Card 7."
+}

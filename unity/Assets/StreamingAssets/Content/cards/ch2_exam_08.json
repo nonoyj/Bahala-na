@@ -1,0 +1,91 @@
+{
+  "id": "ch2_exam_08",
+  "chapter": 2,
+  "pool": "ch2",
+  "title": "Pagsusulit o Trabaho",
+  "title_en": "Exam or Work",
+  "tags": [
+    "crossroads",
+    "karera"
+  ],
+  "requires": null,
+  "setup": "Dumating ang sangandaan. May pagsusulit para sa serbisyo — o pwede kang magtrabaho agad para tumulong sa pamilya. Hindi pwedeng pareho.",
+  "setup_en": "The crossroads arrive. There's a civil service exam — or you can work right away to help the family. You can't do both.",
+  "choices": [
+    {
+      "label": "Kukuha ako ng pagsusulit.",
+      "label_en": "I'll take the exam.",
+      "type": "honest",
+      "roll": {
+        "stat": "talino",
+        "dc": 13
+      },
+      "success": {
+        "text": "Pumasa ka. Nagbukas ang pinto.",
+        "text_en": "You pass. A door opens.",
+        "effects": {
+          "stats": {
+            "talino": 1
+          },
+          "flags": [
+            "took_exam_or_followed_family_service"
+          ]
+        }
+      },
+      "fail": {
+        "text": "Teka muna, bumaba ang talino? Hindi — natuto ka. May diskarte ka.",
+        "text_en": "You fail, but you learn. You gain resourcefulness.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          },
+          "flags": [
+            "took_exam_or_followed_family_service"
+          ]
+        }
+      }
+    },
+    {
+      "label": "Sabihin kay Kuya Jun, ayusin ang resulta.",
+      "label_en": "Let Kuya Jun fix the result.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 2,
+        "flags": [
+          "took_exam_or_followed_family_service"
+        ]
+      }
+    },
+    {
+      "label": "Magtrabaho na lang ako.",
+      "label_en": "I'll just work.",
+      "type": "ordinary",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "pera": 1,
+          "talino": -1
+        },
+        "flags": [
+          "went_to_work_early"
+        ]
+      }
+    },
+    {
+      "label": "Hindi ko pa alam.",
+      "label_en": "I don't know yet.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "undecided"
+        ]
+      }
+    }
+  ],
+  "callback": "took_exam -> Police career. went_to_work_early -> Ordinary Citizen. Utang +2 -> Singil."
+}

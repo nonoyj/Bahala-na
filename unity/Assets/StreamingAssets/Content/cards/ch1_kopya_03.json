@@ -1,0 +1,72 @@
+{
+  "id": "ch1_kopya_03",
+  "chapter": 1,
+  "pool": "ch1",
+  "title": "Kopya",
+  "title_en": "Cheat Sheet",
+  "tags": [
+    "school",
+    "integridad",
+    "utang"
+  ],
+  "requires": null,
+  "setup": "May quiz bukas at hindi nakapag-review si Bea, ang kaibigan mong magaling mag-drawing. 'Pahiram ng sagot mo mamaya, isang tingin lang. May utang ako sa'yo, promise.'",
+  "setup_en": "There's a quiz tomorrow and Bea, your friend who's great at drawing, hasn't reviewed. 'Lend me your answers later, just one peek. I owe you, promise.'",
+  "choices": [
+    {
+      "label": "Hindi pwede. Sabay tayo mag-review.",
+      "label_en": "No way. Let's review together.",
+      "type": "collective",
+      "roll": {
+        "stat": "talino",
+        "dc": 10
+      },
+      "success": {
+        "text": "Napagani mo siya. Pumasa siyang patas.",
+        "text_en": "You convince her. She passes fairly.",
+        "effects": {
+          "stats": {
+            "talino": 1,
+            "komunidad": 1
+          },
+          "flags": [
+            "studied_together"
+          ]
+        }
+      },
+      "fail": {
+        "text": "Naubusan kayo ng oras, pero nag-review pa rin.",
+        "text_en": "You ran out of time, but you still reviewed.",
+        "effects": {
+          "flags": [
+            "studied_together"
+          ]
+        }
+      }
+    },
+    {
+      "label": "Sige, kopyahin mo.",
+      "label_en": "Fine, copy it.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Bahala ka.",
+      "label_en": "Do what you want.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "silent_copy"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +1 -> Singil seed. silent_copy -> Ch2 Card 4."
+}

@@ -1,0 +1,80 @@
+{
+  "id": "ch4_morning_04",
+  "chapter": 4,
+  "pool": "ch4",
+  "role": null,
+  "title": "Ang Umaga",
+  "title_en": "The Morning",
+  "tags": [
+    "climax",
+    "decision"
+  ],
+  "requires": null,
+  "systemic": true,
+  "setup": "Ang mga boses ay dumami. Ang Silent Majority ay nagsalita na. Ang bayan ay kailangang magdesisyon — reporma o tanggapin ang dati.",
+  "setup_en": "The voices grow. The Silent Majority has spoken. The town must decide — reform, or accept the old way.",
+  "choices": [
+    {
+      "label": "Reporma. Ngayon na.",
+      "label_en": "Reform. Now.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 18,
+        "systemic": true,
+        "kasama": true,
+        "echoes": true
+      },
+      "success": {
+        "text": "Nagbago ang bayan. Sabay-sabay.",
+        "text_en": "The town changes. Together.",
+        "effects": {
+          "reform": true
+        }
+      },
+      "fail": {
+        "text": "Hindi ganap, pero nagsimula. Sumalakong ka.",
+        "text_en": "Not complete, but it begins. You stepped up.",
+        "effects": {
+          "voices": 1,
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Unti-unti lang.",
+      "label_en": "Slowly.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 16,
+        "systemic": true
+      },
+      "success": {
+        "text": "Unti-unting reporma. Tumatakbo.",
+        "text_en": "Slow reform. It moves.",
+        "effects": {
+          "reform": true
+        }
+      },
+      "fail": {
+        "text": "Status quo, pero nagsalita ka.",
+        "text_en": "Status quo, but you spoke.",
+        "effects": {
+          "voices": 1,
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Tanggapin na lang ang dati.",
+      "label_en": "Just accept the old way.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "walangKibo": 1
+      }
+    }
+  ],
+  "callback": "Determines ending (Reform vs status quo). Leads to final screen."
+}

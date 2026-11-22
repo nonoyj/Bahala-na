@@ -1,0 +1,90 @@
+{
+  "id": "ch3_citizen_assembly_01",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "citizen",
+  "title": "Ang Assembly",
+  "title_en": "The Assembly",
+  "tags": [
+    "citizen",
+    "assembly"
+  ],
+  "requires": null,
+  "setup": "May barangay assembly tungkol sa baha. 'Pupunta ka ba?' tanong ni Aling Cora. 'Wala namang nangyayari doon,' sabi ng iba.",
+  "setup_en": "There's a barangay assembly about the flood. 'Will you go?' asks Aling Cora. 'Nothing ever happens there,' say the others.",
+  "choices": [
+    {
+      "label": "Pupunta ako.",
+      "label_en": "I'll go.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 12
+      },
+      "success": {
+        "text": "Nagsalita ka. Tumaas ang tiwala.",
+        "text_en": "You speak. Trust grows.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Hindi ka napansin, pero napunta ka.",
+        "text_en": "You're ignored, but you showed up.",
+        "effects": {
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Magpapadala ako ng sulat.",
+      "label_en": "I'll send a letter.",
+      "type": "diskarte",
+      "roll": {
+        "stat": "diskarte",
+        "dc": 12
+      },
+      "success": {
+        "text": "Nabasa ang sulat.",
+        "text_en": "The letter is read.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Hindi nabasa, pero sinubukan mo.",
+        "text_en": "It's not read, but you tried.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Sabihin kay Kuya Jun.",
+      "label_en": "Tell Kuya Jun.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Hindi na lang.",
+      "label_en": "Never mind.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "skipped_assembly"
+        ]
+      }
+    }
+  ],
+  "callback": "spoke_up -> Ch4. skipped_assembly -> Ch4 (absent)."
+}

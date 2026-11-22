@@ -1,0 +1,72 @@
+{
+  "id": "ch1_tinda_06",
+  "chapter": 1,
+  "pool": "ch1",
+  "title": "Tinda sa Palengke",
+  "title_en": "The Market Stall",
+  "tags": [
+    "family",
+    "padrino",
+    "pera"
+  ],
+  "requires": null,
+  "setup": "Hapon na at nagsasara na ang pamilya mo ng tindahan sa palengke. Bumulong ang tanod: 'Maliit lang 'to… pang-merienda lang. Para hindi na maabala.'",
+  "setup_en": "It's late afternoon and your family is closing the market stall. The tanod whispers: 'It's just a little something… for merienda. So no one gets bothered.'",
+  "choices": [
+    {
+      "label": "Sige po, pang-merienda.",
+      "label_en": "Fine, for merienda.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "pera": 1,
+          "integridad": -1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Ayusin namin ang pwesto, ngayon na.",
+      "label_en": "We'll fix the spot right now.",
+      "type": "honest",
+      "roll": {
+        "stat": "diskarte",
+        "dc": 12
+      },
+      "success": {
+        "text": "Nagtodo sila sa inyo. Walang multa.",
+        "text_en": "They hurry. No fine.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Multa. Uboong nang maayos ang pwesto.",
+        "text_en": "A fine. The stall is fixed anyway.",
+        "effects": {
+          "stats": {
+            "pera": -1
+          },
+          "flags": [
+            "fixed_stall"
+          ]
+        }
+      }
+    },
+    {
+      "label": "Si Nanay na lang ang bahala.",
+      "label_en": "Let Nanay handle it.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "let_nanay"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +1 -> Singil. let_nanay -> Ch2 Card 5 / Ch3."
+}

@@ -1,0 +1,90 @@
+{
+  "id": "ch3_teacher_evidence_03",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "teacher",
+  "title": "Ang Ebidensya",
+  "title_en": "The Evidence",
+  "tags": [
+    "teacher",
+    "whistleblower"
+  ],
+  "requires": null,
+  "setup": "May estudyanteng lumapit sa'yo na may larawan — may iregularidad sa proyekto ng paaralan. '{{maam}} , hindi ko alam kung kanino ko sasabihin.'",
+  "setup_en": "A student approaches you with a photo — an irregularity in a school project. '{{maam}}, I don't know who to tell.'",
+  "choices": [
+    {
+      "label": "Sasabihin ko sa kinauukulan.",
+      "label_en": "I'll tell the authorities.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Tumakbo ang kaso.",
+        "text_en": "The case opens.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Natigil, pero sinubukan mo.",
+        "text_en": "It stalls, but you tried.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Tulungan kitang i-document.",
+      "label_en": "Let's document it together.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 14
+      },
+      "success": {
+        "text": "Solidong ebidensya. Tumaas ang tiwala.",
+        "text_en": "Solid evidence. Trust grows.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "May banta, pero nasubukan mo.",
+        "text_en": "A threat comes, but you tried.",
+        "effects": {
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Sabihin mo kay Kuya Jun.",
+      "label_en": "Tell Kuya Jun.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Huwag ka nang magsalita.",
+      "label_en": "Don't say anything more.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "silenced_student"
+        ]
+      }
+    }
+  ],
+  "callback": "spoke_up -> Ch4. Ghost project -> Ch4."
+}

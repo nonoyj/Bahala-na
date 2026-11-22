@@ -1,0 +1,111 @@
+{
+  "id": "ch2_rico_07",
+  "chapter": 2,
+  "pool": "ch2",
+  "title": "Rico, sa Barkada",
+  "title_en": "Rico and the Barkada",
+  "tags": [
+    "barkada",
+    "komunidad"
+  ],
+  "requires": {
+    "any_flags": [
+      "looked_away",
+      "shared_food"
+    ]
+  },
+  "setup": "Na-ospital ang nanay ni Rico at kailangan ng pera. Sabi ng barkada: 'Tulungan natin siya.' Pero ang iba, ayaw madamay.",
+  "setup_en": "Rico's mother is hospitalized and they need money. The barkada says: 'Let's help her.' But some don't want to get involved.",
+  "choices": [
+    {
+      "label": "Tulungan natin siya, lahat tayo.",
+      "label_en": "Let's help her, all of us.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 13
+      },
+      "success": {
+        "text": "Nagkaisa ang barkada. Tulungan ni Rico ang pamilya niya.",
+        "text_en": "The barkada unites. Rico's family is helped.",
+        "effects": {
+          "stats": {
+            "komunidad": 2
+          },
+          "flags": [
+            "helped_rico"
+          ]
+        }
+      },
+      "fail": {
+        "text": "Hindi sapat, pero nagawa ninyo ang kaya.",
+        "text_en": "Not enough, but you did what you could.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "flags": [
+            "helped_rico"
+          ]
+        }
+      }
+    },
+    {
+      "label": "Magbibigay ako ng pera.",
+      "label_en": "I'll give money.",
+      "type": "pera",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "pera": -1,
+          "komunidad": 1
+        },
+        "flags": [
+          "helped_rico"
+        ]
+      }
+    },
+    {
+      "label": "Tumayo ako para kay Rico.",
+      "label_en": "I'll stand up for Rico.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 14
+      },
+      "success": {
+        "text": "Tumayo ka. Sumunod ang iba.",
+        "text_en": "You stand up. Others follow.",
+        "effects": {
+          "stats": {
+            "integridad": 1,
+            "komunidad": 1
+          },
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Pinagtawanan ka, pero nanatili ka.",
+        "text_en": "They mock you, but you held your ground.",
+        "effects": {
+          "stats": {
+            "komunidad": -1
+          },
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Hindi ko kaya.",
+      "label_en": "I can't handle this.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "abandoned_rico"
+        ]
+      }
+    }
+  ],
+  "callback": "helped_rico -> Ch3/Ch4 ally. spoke_up -> Organizer career."
+}

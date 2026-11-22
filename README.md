@@ -1,9 +1,9 @@
-# BAHALA NA? — Backend (Barangay Bayanihan)
+# BAHALA NA? — Barangay Bayanihan
 
-**Status:** backend artifacts for the playable demo (target 2026-12-09) · **Base:** `main`
+**Status:** backend + Unity 6.3 client (authored) for the playable demo (target 2026-12-09) · **Base:** `main`
 **Master reference:** [`HANDOFF.md`](HANDOFF.md) (full design + build spec) · **Card content source:** [`CARDS.md`](CARDS.md) · **Pitch:** [`PITCH.md`](PITCH.md)
 
-> **Scope of this PR — backend only.** The user owns backend; frontend (Unity client, UI, world hub, animations) is owned by other contributors. This branch carries the backend artifacts: the frozen API contract, the rules/Shared Barangay reference engine, the card/content data + pipeline, and the balance harness. The web UI demo that was prototyped here is intentionally **excluded** so it does not collide with frontend work.
+> **Scope.** Backend is owned by the user; the **Unity client is authored in this repo** (`unity/`) so the game logic, UI flow and Firebase wiring are versioned with the content and contract. The earlier web UI demo is intentionally **excluded** (frontend contributors build the Unity client against `API_CONTRACT.md`; `js/engine.js` remains the rules reference).
 
 ---
 
@@ -33,10 +33,11 @@ Full storyline, cast, chapters, and mechanics: [`HANDOFF.md`](HANDOFF.md) §B.
 | **Card/content data** (40 cards, 10 endings, 12 echoes, final asks, backgrounds, eras) | [`content/`](content/) | backend/writer |
 | **Content pipeline** (Python source of truth → JSON → bundle) | [`scripts/content_a/b/c.py`](scripts/), [`scripts/build_content.py`](scripts/build_content.py) | backend/writer |
 | **Balance/crash harness** | [`scripts/simulate.js`](scripts/simulate.js) | backend |
+| **Unity 6.3 client** (rules port, uGUI screens, save, offline queue, Firebase backend) | [`unity/`](unity/) | frontend |
 | **Decision log** | [`DECISIONS.md`](DECISIONS.md) | shared |
 | **Design masters** | [`HANDOFF.md`](HANDOFF.md), [`CARDS.md`](CARDS.md), [`PITCH.md`](PITCH.md) | shared |
 
-**Excluded (frontend):** `index.html`, `css/`, `js/ui.js`, `js/main.js`, `assets/` — the playable web demo. Frontend contributors build the Unity client/UI against `API_CONTRACT.md`; `js/engine.js` is the reference implementation of the rules.
+**Excluded (web demo):** `index.html`, `css/`, `js/ui.js`, `js/main.js`, `assets/` — the prototype web UI. The **Unity client lives in [`unity/`](unity/)** and is the frontend deliverable.
 
 ---
 
@@ -113,7 +114,22 @@ The Unity client (frontend-owned) reads `barangay/state` + `echoes` directly and
 
 ---
 
-## 6. Content pipeline
+## 6. Unity client (`unity/`) — authored C#
+
+Unity **6.3 LTS** (2D/URP) + C#. The client is a real Unity project scaffold: game logic, code-built uGUI flow, local save, offline contribution queue, and a switchable backend. Open `unity/` in Unity Hub → **Add project from disk** → press Play (`GameApp` bootstraps itself).
+
+- **`Assets/Scripts/GameManager.cs`** — direct C# port of `js/engine.js` (chapters, decks, careers, dice, climax cascade, endings). All rules changes go here **and** in the JS reference.
+- **`Assets/Scripts/ContentDatabase.cs`** — async loads `StreamingAssets/Content/manifest.json` + card files (works in editor and inside an APK).
+- **`Assets/Scripts/UI/`** — `UIBuilder` (no prefabs), `UIManager`, and screens: menu, Character Spark, chapter intro, career pick, card, roll sheet, outcome, climax, ending, Barangay/Echoes/How-to/Settings/About.
+- **`Assets/Scripts/SaveManager.cs` / `Backend.cs` / `FirebaseBackend.cs`** — local JSON save, `IBarangayBackend` + offline `LocalBackend`, and the real Firebase impl behind the `BAHALANA_FIREBASE` scripting define (needs the Firebase Unity SDK + `google-services.json`/`GoogleService-Info.plist`).
+- **`Assets/Editor/ContentExport.cs`** — menu **Bahala Na → Export Content** copies `../../content/*` into `Assets/StreamingAssets/Content/`.
+- **Utang na Loob is never rendered as a number** — only `SaveManager.UtangHint()` flavor lines (§C.6 / §D).
+
+See [`unity/README.md`](unity/README.md) for the quick start and layout. **Note:** no Unity toolchain exists in the authoring sandbox, so the client is authored + statically reviewed (tree-sitter parse clean) but has not been compiled/run; open it in Unity 6.3 to build.
+
+---
+
+## 7. Content pipeline
 
 ```
 scripts/content_a.py  (Ch1 + Ch2 cards)
@@ -129,18 +145,20 @@ Content rules (§B.15): every card has a *Huwag makialam* option · ≤1 obvious
 
 ---
 
-## 7. Verification
+## 8. Verification
 
 ```bash
 node scripts/simulate.js 3000        # rules/balance harness
 cd backend && npm test               # backend unit tests (era + contribution)
+# Unity client: tree-sitter C# parse check — snippet in unity/README.md
 ```
 - Rules harness: 3,000 simulated runs — no crashes, stats always 0–10, all 10 endings reachable, Singil triggers at Utang ≥ 3, contribution/era math stable. Balance levers (DCs, backgrounds, contribution) can be re-tuned in `scripts/content_*.py` and re-simulated.
 - Backend: 12 unit tests covering era boundaries/DC modifiers, contribution rules (speak up +4 / join +2 / silent / Utang ≥ 5 / pendingTiwala / clamping / crossing 60).
+- Unity client: authored + statically reviewed; **not compiled/run here** (no Unity toolchain in the authoring sandbox). Open `unity/` in Unity 6.3 to build.
 
 ---
 
-## 8. Build phasing (§D.3)
+## 9. Build phasing (§D.3)
 
 1. **Lock design + data model + API contract** — done (`HANDOFF.md`, `API_CONTRACT.md`).
 2. **Parallel:** content (cards/endings) ∥ frontend (Unity UI, main menu, settings) ∥ backend (Firestore, Functions, rules).
@@ -151,6 +169,6 @@ cd backend && npm test               # backend unit tests (era + contribution)
 
 ---
 
-## 9. Locked decisions (don't drift)
+## 10. Locked decisions (don't drift)
 
 See `HANDOFF.md` §D.1. Highlights: mobile-first (Android then iOS) · Shared Barangay **BUILD** · 29-card minimum (40 written) · all 10 endings · no partial success · Kasama +1d4 max 2 · pre-written echoes · career tiebreak = player picks · 4 eras · ~70% Taglish · presentation changes card text · location-specific final ask · 8 cast members · pixel/GBA art · animated physical d20 · AI-assisted writing.

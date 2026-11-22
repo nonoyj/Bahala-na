@@ -1,0 +1,103 @@
+{
+  "id": "ch2_org_02",
+  "chapter": 2,
+  "pool": "ch2",
+  "title": "Halalan sa Org",
+  "title_en": "The Org Election",
+  "tags": [
+    "school",
+    "koneksyon",
+    "politika"
+  ],
+  "requires": null,
+  "setup": "Halalan na ng student org. Sabi ni Bea: 'Tumakbo ka. Alam kong mananalo ka.' Pero may narinig kang balita — may nag-aalok ng pera para sa boto.",
+  "setup_en": "The student org election is here. Bea says: 'Run. I know you'll win.' But you heard a rumor — someone is offering money for votes.",
+  "choices": [
+    {
+      "label": "Tatakbo ako, patas.",
+      "label_en": "I'll run, fairly.",
+      "type": "honest",
+      "roll": {
+        "stat": "koneksyon",
+        "dc": 13
+      },
+      "success": {
+        "text": "Nanalo ka nang patas.",
+        "text_en": "You win fairly.",
+        "effects": {
+          "stats": {
+            "koneksyon": 1
+          },
+          "flags": [
+            "ran_for_org"
+          ]
+        }
+      },
+      "fail": {
+        "text": "Talo ka, pero natuto ka. May sumama sa'yo.",
+        "text_en": "You lose, but you learn. Some stand by you.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "flags": [
+            "ran_for_org"
+          ]
+        }
+      }
+    },
+    {
+      "label": "Sabihin kay Kuya Jun, ayusin niya.",
+      "label_en": "Let Kuya Jun fix it.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 2,
+        "flags": [
+          "ran_for_org"
+        ]
+      }
+    },
+    {
+      "label": "Suportahan ko na lang si Bea.",
+      "label_en": "I'll just support Bea.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 12
+      },
+      "success": {
+        "text": "Nanalo si Bea. Mas malakas ang samahan.",
+        "text_en": "Bea wins. The org grows stronger.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "flags": [
+            "supported_friend"
+          ]
+        }
+      },
+      "fail": {
+        "text": "Talo si Bea, pero nanatili ang samahan.",
+        "text_en": "Bea loses, but the bond remains.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Hindi ako makikialam.",
+      "label_en": "I'll stay out of it.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "sat_out"
+        ]
+      }
+    }
+  ],
+  "callback": "ran_for_org -> Politician career. Utang +2 -> Singil."
+}

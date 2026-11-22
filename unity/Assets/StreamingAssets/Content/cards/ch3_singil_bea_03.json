@@ -1,0 +1,101 @@
+{
+  "id": "ch3_singil_bea_03",
+  "chapter": 3,
+  "pool": "ch3_singil",
+  "role": null,
+  "title": "Ang Utang ni Bea",
+  "title_en": "Bea's Debt",
+  "tags": [
+    "singil",
+    "utang",
+    "callback"
+  ],
+  "requires": {
+    "utang_min": 3
+  },
+  "setup": "Tumawag si Bea. 'Naalala mo ang utang mo sa akin? Kailangan ko ng pabor — ngayon na.'",
+  "setup_en": "Bea calls. 'Remember the favor you owe me? I need one — right now.'",
+  "choices": [
+    {
+      "label": "Sige, gagawin ko.",
+      "label_en": "Fine, I'll do it.",
+      "type": "comply",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": -2,
+        "tiwala": -1,
+        "complied": true
+      }
+    },
+    {
+      "label": "Hindi.",
+      "label_en": "No.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 10,
+        "dc_plus_utang": true,
+        "kasama": true,
+        "echoes": true
+      },
+      "success": {
+        "text": "Nawala ang utang. Tumaas ang samahan.",
+        "text_en": "The debt clears. Bonds grow.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "utangClear": true
+        }
+      },
+      "fail": {
+        "text": "Nasalanta ang koneksyon. Nanatili ang utang.",
+        "text_en": "Ties are damaged. The debt stays.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Hihingi ako ng tulong.",
+      "label_en": "I'll ask for help.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 12,
+        "kasama": true,
+        "echoes": true
+      },
+      "success": {
+        "text": "May sumama. Nawala ang utang.",
+        "text_en": "Someone joins. The debt clears.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "utangClear": true
+        }
+      },
+      "fail": {
+        "text": "Hindi agad, pero may sumama.",
+        "text_en": "Not yet, but someone stands with you.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Hindi pa ngayon.",
+      "label_en": "Not now.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "utang": 1
+      }
+    }
+  ],
+  "callback": "Debt cleared -> Ch4."
+}
