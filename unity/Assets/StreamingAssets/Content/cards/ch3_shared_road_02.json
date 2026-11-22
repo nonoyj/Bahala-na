@@ -1,0 +1,90 @@
+{
+  "id": "ch3_shared_road_02",
+  "chapter": 3,
+  "pool": "ch3_shared",
+  "role": null,
+  "title": "Ang Sirang Kalsada",
+  "title_en": "The Broken Road",
+  "tags": [
+    "barangay",
+    "komunidad"
+  ],
+  "requires": null,
+  "setup": "Baha na naman sa kalye ninyo. Walang gumagawa. Sabi ni Kap Eddie: 'Mag-aantay tayo ng pondo.'",
+  "setup_en": "The street floods again. No one acts. Kap Eddie says: 'We'll wait for funds.'",
+  "choices": [
+    {
+      "label": "Mag-organize tayo ng bayanihan.",
+      "label_en": "Let's organize a bayanihan.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 14
+      },
+      "success": {
+        "text": "Nagbayanihan. Naayos ang kalye. Tumaas ang tiwala.",
+        "text_en": "You organize. The street is fixed. Trust grows.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Hindi sapat, pero nasabi mo.",
+        "text_en": "Not enough, but you spoke up.",
+        "effects": {
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Magreklamo ako kay Kap Eddie.",
+      "label_en": "I'll complain to Kap Eddie.",
+      "type": "honest",
+      "roll": {
+        "stat": "koneksyon",
+        "dc": 13
+      },
+      "success": {
+        "text": "Nangako si Kap. Tumaas ang koneksyon.",
+        "text_en": "Kap promises. Ties strengthen.",
+        "effects": {
+          "stats": {
+            "koneksyon": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Walang nangyari, pero sinubokan mo.",
+        "text_en": "Nothing happens, but you tried.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Sabihin kay Kuya Jun.",
+      "label_en": "Tell Kuya Jun.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Mag-antay na lang.",
+      "label_en": "Just wait.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "waited"
+        ]
+      }
+    }
+  ],
+  "callback": "spoke_up -> Ch4. Utang +1 -> Singil."
+}

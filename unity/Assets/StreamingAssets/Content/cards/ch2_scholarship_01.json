@@ -1,0 +1,95 @@
+{
+  "id": "ch2_scholarship_01",
+  "chapter": 2,
+  "pool": "ch2",
+  "title": "Scholarship ni Tita Baby",
+  "title_en": "Tita Baby's Scholarship",
+  "tags": [
+    "education",
+    "padrino"
+  ],
+  "requires": null,
+  "setup": "Bukas na ang deadline ng scholarship list. Nag-text si Tita Baby: 'Ako na bahala. Isang tawag lang sa kaibigan ko sa munisipyo.'",
+  "setup_en": "The scholarship list closes tomorrow. Tita Baby texts: 'I'll take care of it. Just one call to my friend at the municipal hall.'",
+  "choices": [
+    {
+      "label": "Salamat po, Tita.",
+      "label_en": "Thank you, Tita.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1,
+          "koneksyon": 1
+        },
+        "utang": 2
+      }
+    },
+    {
+      "label": "Mag-aapply ako nang patas.",
+      "label_en": "I'll apply fairly.",
+      "type": "honest",
+      "roll": {
+        "stat": "talino",
+        "dc": 13
+      },
+      "success": {
+        "text": "Nakapasok ka sa listahan. Patas.",
+        "text_en": "You make the list. Fair and square.",
+        "effects": {
+          "stats": {
+            "talino": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Talo ka. Bumaba ang pera.",
+        "text_en": "You lose out. Money gets tighter.",
+        "effects": {
+          "stats": {
+            "pera": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Magtanong tayo ng kriteria, kasama ang mga kaklase.",
+      "label_en": "Let's ask for the criteria, with our classmates.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 14,
+        "kasama": true
+      },
+      "success": {
+        "text": "Nagbukas ang criteria. Mas patas para sa lahat.",
+        "text_en": "The criteria are opened. Fairer for everyone.",
+        "effects": {
+          "stats": {
+            "komunidad": 2
+          },
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Walang nagbago, pero nasabi mo.",
+        "text_en": "Nothing changes, but you spoke up.",
+        "effects": {
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Hindi na lang.",
+      "label_en": "Never mind.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "pera": -1
+        }
+      }
+    }
+  ],
+  "callback": "Utang +2 -> Singil. spoke_up -> Organizer career + Ch4."
+}

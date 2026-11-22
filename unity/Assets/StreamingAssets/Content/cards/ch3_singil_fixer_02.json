@@ -1,0 +1,101 @@
+{
+  "id": "ch3_singil_fixer_02",
+  "chapter": 3,
+  "pool": "ch3_singil",
+  "role": null,
+  "title": "Ang Pirma ni Kuya Jun",
+  "title_en": "Kuya Jun's Signature",
+  "tags": [
+    "singil",
+    "utang",
+    "fixer"
+  ],
+  "requires": {
+    "utang_min": 3
+  },
+  "setup": "Sabi ni Kuya Jun: 'Isang pirma lang. Vouch mo lang ako sa isang proyekto. Hindi ito malaking bagay.'",
+  "setup_en": "Kuya Jun says: 'Just one signature. Just vouch for me on a project. It's no big deal.'",
+  "choices": [
+    {
+      "label": "Pipirma ako.",
+      "label_en": "I'll sign.",
+      "type": "comply",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": -2,
+        "tiwala": -2,
+        "complied": true
+      }
+    },
+    {
+      "label": "Hindi.",
+      "label_en": "No.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 10,
+        "dc_plus_utang": true,
+        "kasama": true,
+        "echoes": true
+      },
+      "success": {
+        "text": "Nawala ang utang. Tumaas ang samahan.",
+        "text_en": "The debt clears. Bonds grow.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "utangClear": true
+        }
+      },
+      "fail": {
+        "text": "Bumaba ang pera. Nanatili ang utang.",
+        "text_en": "Money drops. The debt stays.",
+        "effects": {
+          "stats": {
+            "pera": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Isama ko ang barkada.",
+      "label_en": "I'll bring the barkada.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 12,
+        "kasama": true,
+        "echoes": true
+      },
+      "success": {
+        "text": "Tumulong ang barkada. Nawala ang utang.",
+        "text_en": "The barkada helps. The debt clears.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "utangClear": true
+        }
+      },
+      "fail": {
+        "text": "Hindi agad, pero may sumama.",
+        "text_en": "Not yet, but someone stands with you.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Pag-iisipan ko.",
+      "label_en": "I'll think about it.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "utang": 1
+      }
+    }
+  ],
+  "callback": "Debt cleared -> Ch4."
+}

@@ -1,0 +1,93 @@
+{
+  "id": "ch3_shared_sick_01",
+  "chapter": 3,
+  "pool": "ch3_shared",
+  "role": null,
+  "title": "Ang Sakit ni Nanay",
+  "title_en": "Nanay's Illness",
+  "tags": [
+    "family",
+    "pera",
+    "padrino"
+  ],
+  "requires": null,
+  "setup": "Na-ospital si Nanay. Kailangan ng pera ngayon na. Lumapit si Tita Baby: 'May kilala akong makakatulong. Isang pirma lang.'",
+  "setup_en": "Nanay is hospitalized. Money is needed now. Tita Baby approaches: 'I know someone who can help. Just one signature.'",
+  "choices": [
+    {
+      "label": "Salamat, Tita.",
+      "label_en": "Thanks, Tita.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "pera": 2,
+          "integridad": -1
+        },
+        "utang": 2
+      }
+    },
+    {
+      "label": "Maghahanap ako ng paraan.",
+      "label_en": "I'll find a way.",
+      "type": "diskarte",
+      "roll": {
+        "stat": "diskarte",
+        "dc": 14
+      },
+      "success": {
+        "text": "May paraan. Tumaas ang diskarte.",
+        "text_en": "You find a way. Resourcefulness grows.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Bumaba ang pera, pero sinubokan mo.",
+        "text_en": "Money drops, but you tried.",
+        "effects": {
+          "stats": {
+            "pera": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Hihingi ako ng tulong sa barkada.",
+      "label_en": "I'll ask the barkada.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 13
+      },
+      "success": {
+        "text": "Nagbayanihan. Nakalikom.",
+        "text_en": "They chip in. Funds raised.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Hindi sapat, pero tumulong.",
+        "text_en": "Not enough, but they helped.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Bahala na ang ospital.",
+      "label_en": "Let the hospital handle it.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "couldnt_pay"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +2 -> Singil. (Sympathetic reason for padrino.)"
+}

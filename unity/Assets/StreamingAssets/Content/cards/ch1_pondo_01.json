@@ -1,0 +1,69 @@
+{
+  "id": "ch1_pondo_01",
+  "chapter": 1,
+  "pool": "ch1",
+  "title": "Pondo ng Klase",
+  "title_en": "The Class Fund",
+  "tags": [
+    "school",
+    "integridad",
+    "padrino"
+  ],
+  "requires": null,
+  "setup": "Iniwan ni Ma'am Lourdes ang kahon ng ambagan sa mesa niya at lumabas saglit. Bumulong si Pia, ang katabi mo: '₱20 lang, babayaran ko bukas. Walang makakaalam.'",
+  "setup_en": "Ma'am Lourdes left the donation box on her desk and stepped out for a moment. Pia, your seatmate, whispers: 'Just ₱20, I'll pay you back tomorrow. No one will know.'",
+  "choices": [
+    {
+      "label": "Huwag. Sabihin natin kay Ma'am.",
+      "label_en": "No. Let's tell Ma'am.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 8
+      },
+      "success": {
+        "text": "Sinabi ninyo kay Ma'am. Nainis si Pia, pero napansin ka ni Ma'am.",
+        "text_en": "You tell Ma'am. Pia is upset, but Ma'am notices your honesty.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Sumbungera si Pia sa'yo. Nasaktan siya.",
+        "text_en": "Pia snitches on you. She gets hurt.",
+        "effects": {
+          "stats": {
+            "komunidad": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sige, isang beses lang.",
+      "label_en": "Fine, just once.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "pera": 1,
+          "integridad": -1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Pabayaan, hindi ko kasalanan.",
+      "label_en": "Leave it. Not my fault.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "saw_it"
+        ]
+      }
+    }
+  ],
+  "callback": "saw_it -> Ch2 Card 3 (Pia asks for a bigger favor)."
+}

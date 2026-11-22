@@ -1,0 +1,42 @@
+[
+  {
+    "min": 0,
+    "max": 29,
+    "id": "mabulok",
+    "name": "Mabulok",
+    "name_en": "Rotten",
+    "dc_mod": 2,
+    "desc": "Systemic DCs +2. Ang bayan ay parang nabulok.",
+    "desc_en": "Systemic DCs +2. The town feels rotten."
+  },
+  {
+    "min": 30,
+    "max": 59,
+    "id": "karaniwan",
+    "name": "Karaniwan",
+    "name_en": "Ordinary",
+    "dc_mod": 0,
+    "desc": "Baseline. Karaniwang bayan.",
+    "desc_en": "Baseline. An ordinary town."
+  },
+  {
+    "min": 60,
+    "max": 84,
+    "id": "gumigising",
+    "name": "Gumigising",
+    "name_en": "Awakening",
+    "dc_mod": -2,
+    "desc": "Systemic DCs −2. Mas madami ang echo. Ang bayan ay gumigising.",
+    "desc_en": "Systemic DCs −2. More echoes. The town is waking up."
+  },
+  {
+    "min": 85,
+    "max": 100,
+    "id": "bagong_umaga",
+    "name": "Bagong Umaga",
+    "name_en": "New Morning",
+    "dc_mod": -2,
+    "desc": "Special cards unlock. Kwento ni Kap Eddie ay nagbago.",
+    "desc_en": "Special cards unlock. Kap Eddie's story changes."
+  }
+]

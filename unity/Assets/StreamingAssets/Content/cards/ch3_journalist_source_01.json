@@ -1,0 +1,102 @@
+{
+  "id": "ch3_journalist_source_01",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "organizer",
+  "title": "Ang Source",
+  "title_en": "The Source",
+  "tags": [
+    "journalist",
+    "evidence"
+  ],
+  "requires": null,
+  "setup": "May source na gustong magsalita tungkol sa ghost project, pero gusto niyang manatiling anonymous. Manipis ang ebidensya mo.",
+  "setup_en": "A source wants to talk about the ghost project, but wants to stay anonymous. Your evidence is thin.",
+  "choices": [
+    {
+      "label": "Ilalabas ko nang maingat.",
+      "label_en": "I'll publish carefully.",
+      "type": "honest",
+      "roll": {
+        "stat": "talino",
+        "dc": 15
+      },
+      "success": {
+        "text": "Tumatakbo ang istorya.",
+        "text_en": "The story runs.",
+        "effects": {
+          "stats": {
+            "talino": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Hinamon, bumaba ang koneksyon.",
+        "text_en": "It's challenged. Ties weaken.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Kailangan ko ng mas matibay.",
+      "label_en": "I need stronger evidence.",
+      "type": "diskarte",
+      "roll": {
+        "stat": "diskarte",
+        "dc": 14
+      },
+      "success": {
+        "text": "Matibay na ebidensya.",
+        "text_en": "Solid evidence.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Umiwas ang source, pero natuto ka.",
+        "text_en": "The source backs out, but you learned.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Isama ko ang barkada sa pag-verify.",
+      "label_en": "The barkada will help verify.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 14
+      },
+      "success": {
+        "text": "Natiyak ng sama-sama.",
+        "text_en": "Together, you verify it.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Mabagal, pero matibay.",
+        "text_en": "Slow, but solid.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Hindi ko ilalabas.",
+      "label_en": "I won't publish it.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "killed_story"
+        ]
+      }
+    }
+  ],
+  "callback": "Ghost project -> Ch4."
+}

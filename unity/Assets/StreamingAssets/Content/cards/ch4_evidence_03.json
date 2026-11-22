@@ -1,0 +1,63 @@
+{
+  "id": "ch4_evidence_03",
+  "chapter": 4,
+  "pool": "ch4",
+  "role": null,
+  "title": "Ang Ebidensya",
+  "title_en": "The Evidence",
+  "tags": [
+    "climax",
+    "evidence"
+  ],
+  "requires": null,
+  "systemic": true,
+  "setup": "May nagpakita ng ebidensya — ang supply log, ang resibo, ang larawan ng walang ginawa. Hindi na ito usap lang. Totoo na ito.",
+  "setup_en": "Someone shows evidence — the supply log, the receipt, the photo of the empty site. This isn't talk anymore. It's real.",
+  "choices": [
+    {
+      "label": "Ipapakita ko ang ebidensya ko.",
+      "label_en": "I'll present my evidence.",
+      "type": "honest",
+      "roll": {
+        "stat": "talino",
+        "dc": 16,
+        "systemic": true
+      },
+      "success": {
+        "text": "Hindi na matatanggi. Sumama ang mga Nag-aalalang Magulang.",
+        "text_en": "It's undeniable. The Worried Parents join.",
+        "effects": {
+          "voices": 2,
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Hinamon ka, pero nagsalita ka. Isang boses pa.",
+        "text_en": "You're questioned, but you spoke. One more voice.",
+        "effects": {
+          "voices": 1,
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Isama ko ang mga echo ng ibang tao.",
+      "label_en": "I'll bring the echoes of others.",
+      "type": "collective",
+      "roll": null,
+      "effects": {
+        "voices": 2,
+        "spokeUp": true,
+        "usesEchoes": 2
+      }
+    },
+    {
+      "label": "Mananatili akong tahimik.",
+      "label_en": "I'll stay quiet.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {}
+    }
+  ],
+  "callback": "Voice count +1/+2. Cautious Vendors may join."
+}

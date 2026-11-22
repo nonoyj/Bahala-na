@@ -52,6 +52,16 @@ def main():
         f.write(";\n")
     print("wrote content/cards-bundle.js")
 
+    # manifest.json — drives the Unity content loader (card ids + extra files).
+    manifest = {
+        "cards": sorted(c["id"] for c in cards),
+        "files": ["backgrounds", "echoes", "endings", "eras", "final_asks"],
+        "contentVersion": "1",
+    }
+    with open(os.path.join(ROOT, "content", "manifest.json"), "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=2)
+    print("wrote content/manifest.json")
+
 
 if __name__ == "__main__":
     main()

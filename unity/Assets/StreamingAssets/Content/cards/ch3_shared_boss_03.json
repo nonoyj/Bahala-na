@@ -1,0 +1,96 @@
+{
+  "id": "ch3_shared_boss_03",
+  "chapter": 3,
+  "pool": "ch3_shared",
+  "role": null,
+  "title": "Ang Utos ng Boss",
+  "title_en": "The Boss's Order",
+  "tags": [
+    "work",
+    "integrity"
+  ],
+  "requires": null,
+  "setup": "Sabi ng boss mo: 'Baguhin mo ang numero. Maliit lang, walang makakaalam.' Kung hindi, baka mawala ang trabaho mo.",
+  "setup_en": "Your boss says: 'Change the number. It's small, no one will know.' If you don't, you might lose your job.",
+  "choices": [
+    {
+      "label": "Hindi ko babaguhin.",
+      "label_en": "I won't change it.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Nanatili ka. May trabaho ka pa.",
+        "text_en": "You hold. You keep your job.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Bumaba ang pera, pero nanatili ka.",
+        "text_en": "Money drops, but you held.",
+        "effects": {
+          "stats": {
+            "pera": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sige, babaguhin ko.",
+      "label_en": "Fine, I'll change it.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1,
+          "pera": 1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "I-document ko muna.",
+      "label_en": "I'll document it first.",
+      "type": "diskarte",
+      "roll": {
+        "stat": "diskarte",
+        "dc": 14
+      },
+      "success": {
+        "text": "May ebidensya ka.",
+        "text_en": "You have proof.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "May nakapansin. Bumaba ang koneksyon.",
+        "text_en": "The boss notices. Ties weaken.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Bahala na.",
+      "label_en": "Leave it be.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "changed_numbers"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +1 -> Singil."
+}

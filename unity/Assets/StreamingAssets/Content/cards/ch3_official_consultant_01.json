@@ -1,0 +1,93 @@
+{
+  "id": "ch3_official_consultant_01",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "official",
+  "title": "Ang Consultant",
+  "title_en": "The Consultant",
+  "tags": [
+    "official",
+    "budget"
+  ],
+  "requires": null,
+  "setup": "May bagong linya sa budget: 'consultant,' ₱300,000. Walang consultant na nakalista. Sabi ng treasurer: 'Para sa kaibigan ng mayor. Pirma na lang.'",
+  "setup_en": "A new line in the budget: 'consultant,' ₱300,000. No consultant is listed. The treasurer says: 'It's for the mayor's friend. Just sign.'",
+  "choices": [
+    {
+      "label": "Hindi ko pipirmahan.",
+      "label_en": "I won't sign.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Hinadlangan mo. Tumaas ang tiwala sa'yo.",
+        "text_en": "You block it. Trust in you grows.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Pinipiga ka, pero tumanggi ka pa rin.",
+        "text_en": "You're pressured, but you refused.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sige, pirma na.",
+      "label_en": "Fine, I'll sign.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 2,
+        "tiwala": -2
+      }
+    },
+    {
+      "label": "Ipa-post natin ang budget sa court.",
+      "label_en": "Let's post the budget in public.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 16
+      },
+      "success": {
+        "text": "Naka-post. Tumaas ang tiwala ng bayan.",
+        "text_en": "It's posted. The town's trust rises.",
+        "effects": {
+          "tiwala": 2,
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Hinadlangan, pero nasabi mo.",
+        "text_en": "Blocked, but you spoke up.",
+        "effects": {
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Hindi ko nakita.",
+      "label_en": "I didn't see it.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "ignored_budget"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +2 -> Singil. spoke_up -> Ch4."
+}
