@@ -14,7 +14,7 @@ Unity 6.3 LTS · 2D URP · C# · Firebase (Firestore / Auth / Functions / Remote
 ## Layout
 ```
 unity/
-  Packages/manifest.json      UGUI 2.0.0 · TMP 3.0.6 · Newtonsoft.Json 3.2.1 · Addressables 2.1.19
+  Packages/manifest.json      UGUI 2.0.0 · TMP 3.0.6 · Newtonsoft.Json 3.2.1 · Addressables 2.10.3
   ProjectSettings/ProjectVersion.txt   6000.3.29f1 (Unity 6.3 LTS)
   Assets/
     Editor/ContentExport.cs   menu: re-export content from ../../content
