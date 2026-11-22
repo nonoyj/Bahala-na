@@ -2,6 +2,7 @@
 
 **Status:** FROZEN before parallel build (per HANDOFF §D.2). Changes require a `DECISIONS.md` entry + both-side sign-off.
 **Scope:** Firestore schema, Cloud Function signatures, Security Rules, contribution/era rules.
+**Implementation:** `backend/` implements this contract (Cloud Functions + rules + Admin SDK seed + Remote Config template). See `backend/README.md`. Region is configurable via `BN_REGION` (default `asia-southeast1`).
 
 ---
 

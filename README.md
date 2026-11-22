@@ -27,6 +27,7 @@ Full storyline, cast, chapters, and mechanics: [`HANDOFF.md`](HANDOFF.md) §B.
 
 | Artifact | File(s) | Owner |
 |---|---|---|
+| **Firebase backend implementation** (Cloud Function `submitRunContribution`, Firestore rules/indexes, Remote Config template, Admin SDK seed, unit tests, CI) | [`backend/`](backend/) | backend |
 | **Frozen API contract** (Firestore schema, `submitRunContribution`, Security Rules, era/DC mapping) | [`API_CONTRACT.md`](API_CONTRACT.md) | backend |
 | **Rules + Shared Barangay reference engine** (pure JS, no DOM — the exact math the Unity client must match) | [`js/engine.js`](js/engine.js) | backend |
 | **Card/content data** (40 cards, 10 endings, 12 echoes, final asks, backgrounds, eras) | [`content/`](content/) | backend/writer |
@@ -78,7 +79,27 @@ RemoteConfig { dcModifiers{era:number}, balance{...}, featureFlags{...}, content
 
 ---
 
-## 4. Rules engine (`js/engine.js`) — what the client must match
+## 4. Firebase backend implementation (`backend/`)
+
+Follows the locked stack (§C.1): **Cloud Functions + Firestore + Security Rules + Remote Config + Admin SDK**.
+
+- `src/submitRunContribution.ts` — callable (Auth required), the **only** writer of `barangay/state`: validate → transaction (read, apply, recompute era, `version++`, write) → echo opt-in → return `{ state, alreadyExists, crossed60, newEra }`. **Idempotent per `runId`** (safe client retries).
+- `src/contribute.ts` / `src/era.ts` — pure contribution + era rules (unit-tested).
+- `src/validators.ts` — zod validation → `invalid-argument`.
+- `firestore.rules` — public read / **no client write** on `barangay/state` + `echoes`; `runs`/`players` owner-scoped.
+- `src/seed.ts` — seeds `barangay/state` (Pag-asa 45, Karaniwan) + the 12 pre-written echoes.
+- `remoteconfig.template.json` — `dcModifiers_era`, balance dice, `featureFlags_singil`, `contentVersion`.
+- `test/` — 12 unit tests (`npm test`); CI: `.github/workflows/backend.yml`.
+
+```bash
+cd backend && npm install && npm test && npm run seed   # seed needs gcloud ADC
+```
+
+The Unity client (frontend-owned) reads `barangay/state` + `echoes` directly and calls `submitRunContribution` on ending; the offline queue retries safely.
+
+---
+
+## 5. Rules engine (`js/engine.js`) — what the client must match
 
 - **Stats** base 3, 0–10; modifier 0–1→+0 · 2–3→+1 · 4–5→+2 · 6–7→+3 · 8–10→+4.
 - **Roll = d20 + modifier + assists vs DC**; nat 20 crit, nat 1 bigger cost (never a dead end); **no partial success**.
@@ -92,7 +113,7 @@ RemoteConfig { dcModifiers{era:number}, balance{...}, featureFlags{...}, content
 
 ---
 
-## 5. Content pipeline
+## 6. Content pipeline
 
 ```
 scripts/content_a.py  (Ch1 + Ch2 cards)
@@ -108,16 +129,18 @@ Content rules (§B.15): every card has a *Huwag makialam* option · ≤1 obvious
 
 ---
 
-## 6. Verification
+## 7. Verification
 
 ```bash
-node scripts/simulate.js 3000
+node scripts/simulate.js 3000        # rules/balance harness
+cd backend && npm test               # backend unit tests (era + contribution)
 ```
-3,000 simulated runs: no crashes, stats always 0–10, all 10 endings reachable, Singil triggers at Utang ≥ 3, contribution/era math stable. Balance levers (DCs, backgrounds, contribution) can be re-tuned in `scripts/content_*.py` and re-simulated.
+- Rules harness: 3,000 simulated runs — no crashes, stats always 0–10, all 10 endings reachable, Singil triggers at Utang ≥ 3, contribution/era math stable. Balance levers (DCs, backgrounds, contribution) can be re-tuned in `scripts/content_*.py` and re-simulated.
+- Backend: 12 unit tests covering era boundaries/DC modifiers, contribution rules (speak up +4 / join +2 / silent / Utang ≥ 5 / pendingTiwala / clamping / crossing 60).
 
 ---
 
-## 7. Build phasing (§D.3)
+## 8. Build phasing (§D.3)
 
 1. **Lock design + data model + API contract** — done (`HANDOFF.md`, `API_CONTRACT.md`).
 2. **Parallel:** content (cards/endings) ∥ frontend (Unity UI, main menu, settings) ∥ backend (Firestore, Functions, rules).
@@ -128,6 +151,6 @@ node scripts/simulate.js 3000
 
 ---
 
-## 8. Locked decisions (don't drift)
+## 9. Locked decisions (don't drift)
 
 See `HANDOFF.md` §D.1. Highlights: mobile-first (Android then iOS) · Shared Barangay **BUILD** · 29-card minimum (40 written) · all 10 endings · no partial success · Kasama +1d4 max 2 · pre-written echoes · career tiebreak = player picks · 4 eras · ~70% Taglish · presentation changes card text · location-specific final ask · 8 cast members · pixel/GBA art · animated physical d20 · AI-assisted writing.

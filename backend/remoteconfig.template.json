@@ -1,0 +1,44 @@
+{
+  "parameters": {
+    "dcModifiers_era": {
+      "defaultValue": { "value": "{\"mabulok\":2,\"karaniwan\":0,\"gumigising\":-2,\"bagong_umaga\":-2}" },
+      "type": "JSON",
+      "description": "Systemic DC modifier per era (HANDOFF §B.13)."
+    },
+    "balance_kasamaDie": {
+      "defaultValue": { "value": "4" },
+      "type": "NUMBER",
+      "description": "Kasama die size (7B)."
+    },
+    "balance_kasamaMax": {
+      "defaultValue": { "value": "2" },
+      "type": "NUMBER",
+      "description": "Max Kasama dice per roll (7B)."
+    },
+    "balance_echoDie": {
+      "defaultValue": { "value": "6" },
+      "type": "NUMBER",
+      "description": "Echo die size (8B)."
+    },
+    "balance_echoMax": {
+      "defaultValue": { "value": "2" },
+      "type": "NUMBER",
+      "description": "Max echoes per roll (8B)."
+    },
+    "featureFlags_singil": {
+      "defaultValue": { "value": "true" },
+      "type": "BOOLEAN",
+      "description": "Enable Singil cards at Utang >= 3."
+    },
+    "contentVersion": {
+      "defaultValue": { "value": "1" },
+      "type": "NUMBER",
+      "description": "Cards/content bundle version."
+    }
+  },
+  "conditions": [],
+  "version": {
+    "versionNumber": "1",
+    "description": "Initial backend config (HANDOFF §C.9)."
+  }
+}
