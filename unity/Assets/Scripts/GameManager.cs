@@ -2,6 +2,7 @@
 // Chapters/decks/careers/climax/endings per HANDOFF §B.5–§B.14.
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace BahalaNa
@@ -260,7 +261,7 @@ namespace BahalaNa
                 eraNote = (EraDcMod > 0 ? "+" : "") + EraDcMod + " (" + (Era != null ? Era.name : "") + ")";
             }
 
-            int mod = Content.Mod(Run.stats.Get(r.stat));
+            int mod = ContentDatabase.Mod(Run.stats.Get(r.stat));
             int kasamaDice = useKasama ? Math.Min(2, KasamaAvailable(Run)) : 0;
             int echoDice = useEchoes ? Math.Min(2, EchoAvailable(Run, Save != null ? Save.Barangay.echoes.Count : 0)) : 0;
 
@@ -549,7 +550,7 @@ namespace BahalaNa
         {
             if (Run == null) return new int[0];
             for (int i = 0; i < StatKeys.Length; i++)
-                Run.mods[i] = Content.Mod(Run.stats.Get(StatKeys[i]));
+                Run.mods[i] = ContentDatabase.Mod(Run.stats.Get(StatKeys[i]));
             return Run.mods;
         }
 
