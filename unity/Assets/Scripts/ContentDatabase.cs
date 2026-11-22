@@ -63,7 +63,7 @@ namespace BahalaNa
                     if (card != null)
                     {
                         if (card.choices != null)
-                            foreach (var ch in card.choices) ch.Bind(card);
+                        foreach (var ch in card.choices) ch.Bind(card);
                         db.Cards.Add(card);
                         db.CardById[card.id] = card;
                     }

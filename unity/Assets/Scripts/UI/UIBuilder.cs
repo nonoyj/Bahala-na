@@ -139,7 +139,7 @@ namespace BahalaNa.UI
             var onImg = onGo.AddComponent<Image>();
             onImg.color = value ? UIBuilder.Teal : UIBuilder.Line;
             tog.targetGraphic = onImg;
-            tog.transition = Toggle.Transition.None;
+            tog.transition = UnityEngine.UI.Selectable.Transition.None;
             tog.isOn = value;
             tog.onValueChanged.AddListener(v =>
             {

@@ -259,7 +259,7 @@ namespace BahalaNa
                 eraNote = (EraDcMod > 0 ? "+" : "") + EraDcMod + " (" + (Era != null ? Era.name : "") + ")";
             }
 
-            int mod = Content.Mod(Run.stats.Get(r.stat));
+            int mod = ContentDatabase.Mod(Run.stats.Get(r.stat));
             int kasamaDice = useKasama ? Math.Min(2, KasamaAvailable(Run)) : 0;
             int echoDice = useEchoes ? Math.Min(2, EchoAvailable(Run, Save != null ? Save.Barangay.echoes.Count : 0)) : 0;
 
@@ -439,7 +439,9 @@ namespace BahalaNa
 
         public bool Redemption()
         {
-            return Run.stats.komunidad >= 4 && new[] { 2, 4, 6, 8, 10 }.Contains(Run.endingId);
+            if (Run.stats.komunidad < 4) return false;
+            string id = Run.endingId.ToString();
+            return id == "2" || id == "4" || id == "6" || id == "8" || id == "10";
         }
 
         // ---------------------------------------------------------------- submit
@@ -548,7 +550,7 @@ namespace BahalaNa
         {
             if (Run == null) return new int[0];
             for (int i = 0; i < StatKeys.Length; i++)
-                Run.mods[i] = Content.Mod(Run.stats.Get(StatKeys[i]));
+                Run.mods[i] = ContentDatabase.Mod(Run.stats.Get(StatKeys[i]));
             return Run.mods;
         }
 

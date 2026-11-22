@@ -119,8 +119,12 @@ namespace BahalaNa
         public Effects effects; // used when roll == null
         public Outcome success;
         public Outcome fail;
-    }
 
+        [JsonIgnore] public Card card; // owner, set by ContentDatabase after load
+
+        public void Bind(Card owner) { card = owner; }
+    }
+    
     [Serializable]
     public class Card
     {
