@@ -1,0 +1,7 @@
+node_modules/
+*.log
+.DS_Store
+scripts/__pycache__/
+backend/lib/
+backend/.runtimeconfig.json
+backend/firebase-debug.log

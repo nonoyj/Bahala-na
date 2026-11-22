@@ -1,0 +1,91 @@
+{
+  "id": "ch3_citizen_cosign_02",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "citizen",
+  "title": "Ang Co-sign",
+  "title_en": "The Co-sign",
+  "tags": [
+    "citizen",
+    "padrino"
+  ],
+  "requires": null,
+  "setup": "May kapitbahay na humihingi na pumirma ka sa isang kahilingan — para sa tubig. 'Kailangan ko ng maraming pirma.'",
+  "setup_en": "A neighbor asks you to sign a request — for water. 'I need many signatures.'",
+  "choices": [
+    {
+      "label": "Pipirma ako.",
+      "label_en": "I'll sign.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 11
+      },
+      "success": {
+        "text": "Tumulong. Umusad ang kahilingan.",
+        "text_en": "You help. The request moves.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Natigil, pero pumirma ka.",
+        "text_en": "It stalls, but you signed.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Hindi ako pipirma.",
+      "label_en": "I won't sign.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 11
+      },
+      "success": {
+        "text": "Tumaas ang dangal mo.",
+        "text_en": "Your honor grows.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Nasalanta ang kapitbahay. Bumaba ang samahan.",
+        "text_en": "The neighbor is hurt. Ties weaken.",
+        "effects": {
+          "stats": {
+            "komunidad": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sabihin kay Kuya Jun.",
+      "label_en": "Tell Kuya Jun.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Bahala ka na.",
+      "label_en": "Figure it out yourself.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "refused_cosign"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +1 -> Singil."
+}

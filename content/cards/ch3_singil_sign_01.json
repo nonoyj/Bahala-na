@@ -1,0 +1,100 @@
+{
+  "id": "ch3_singil_sign_01",
+  "chapter": 3,
+  "pool": "ch3_singil",
+  "role": null,
+  "title": "Ang Pirma",
+  "title_en": "The Signature",
+  "tags": [
+    "singil",
+    "utang"
+  ],
+  "requires": {
+    "utang_min": 3
+  },
+  "setup": "Tumawag si Tita Baby. 'Anak, may papel lang… pirma lang. Alam mo namang tumulong ako sa'yo noon.'",
+  "setup_en": "Tita Baby calls. 'Anak, it's just a paper… just a signature. You know I helped you back then.'",
+  "choices": [
+    {
+      "label": "Pipirma ako.",
+      "label_en": "I'll sign.",
+      "type": "comply",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": -2,
+        "tiwala": -2,
+        "complied": true
+      }
+    },
+    {
+      "label": "Hindi ako pipirma.",
+      "label_en": "I won't sign.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 10,
+        "dc_plus_utang": true,
+        "kasama": true,
+        "echoes": true
+      },
+      "success": {
+        "text": "Nalinawan. Nawala ang utang. Tumaas ang samahan.",
+        "text_en": "It clears. The debt is gone. Bonds grow.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "utangClear": true
+        }
+      },
+      "fail": {
+        "text": "Nasalanta ang koneksyon. Nanatili ang utang.",
+        "text_en": "Ties are damaged. The debt stays.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Hihingi ako ng tulong kay Nurse Lea.",
+      "label_en": "I'll ask Nurse Lea for help.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 12,
+        "kasama": true,
+        "echoes": true
+      },
+      "success": {
+        "text": "Tumulong si Nurse Lea. Nawala ang utang.",
+        "text_en": "Nurse Lea helps. The debt clears.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "utangClear": true
+        }
+      },
+      "fail": {
+        "text": "Hindi agad, pero may sumama.",
+        "text_en": "Not yet, but someone stands with you.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Pag-iisipan ko.",
+      "label_en": "I'll think about it.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "utang": 1
+      }
+    }
+  ],
+  "callback": "Debt cleared -> Ch4 with lighter burden."
+}

@@ -1,0 +1,89 @@
+{
+  "id": "ch4_flood_01",
+  "chapter": 4,
+  "pool": "ch4",
+  "role": null,
+  "title": "Baha",
+  "title_en": "The Flood",
+  "tags": [
+    "climax",
+    "flood"
+  ],
+  "requires": null,
+  "systemic": true,
+  "setup": "Tatlong araw ng ulan at bumaha ang bayan. Ang proyektong 'tapos na' tatlong taon na ang nakalipas — wala. Ang arko, maganda. Nagkukumpol ang mga tao sa barangay hall, basang-basa at galit.",
+  "setup_en": "Three days of rain and the town floods. The project that was 'finished' three years ago — doesn't exist. The arch is lovely. People gather at the barangay hall, soaked and angry.",
+  "choices": [
+    {
+      "label": "Magsasalita ako nang una.",
+      "label_en": "I'll speak first.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 18,
+        "systemic": true
+      },
+      "success": {
+        "text": "Tumahimik ang lahat. Ikaw ang unang boses. May sumunod.",
+        "text_en": "The room goes quiet. You are the first voice. Someone follows.",
+        "effects": {
+          "voices": 1,
+          "spokeFirst": true
+        }
+      },
+      "fail": {
+        "text": "Umay ka muna, pero nagsalita ka. Ikaw ang unang boses.",
+        "text_en": "It comes out rough, but you spoke. You are the first voice.",
+        "effects": {
+          "voices": 1,
+          "spokeFirst": true
+        }
+      }
+    },
+    {
+      "label": "Maghihintay ako kung sino ang magsasalita.",
+      "label_en": "I'll wait to see who speaks.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {}
+    },
+    {
+      "label": "Dadalhin ko ang mga kapitbahay ko.",
+      "label_en": "I'll bring my neighbors.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 16,
+        "systemic": true,
+        "kasama": true,
+        "echoes": true
+      },
+      "success": {
+        "text": "Dumating ang mga kapitbahay. Dalawang boses pa.",
+        "text_en": "The neighbors arrive. Two more voices.",
+        "effects": {
+          "voices": 2,
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Isang kapitbahay ang sumama. Boses pa rin.",
+        "text_en": "One neighbor joins. A voice anyway.",
+        "effects": {
+          "voices": 1,
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Aalis na lang ako.",
+      "label_en": "I'll just leave.",
+      "type": "escape",
+      "roll": null,
+      "effects": {
+        "walangKibo": 1
+      }
+    }
+  ],
+  "callback": "Voice count begins. Echoes add voices."
+}

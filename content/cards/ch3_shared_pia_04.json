@@ -1,0 +1,91 @@
+{
+  "id": "ch3_shared_pia_04",
+  "chapter": 3,
+  "pool": "ch3_shared",
+  "role": null,
+  "title": "Ang Pagbabalik ni Pia",
+  "title_en": "Pia's Return",
+  "tags": [
+    "callback",
+    "loyalty"
+  ],
+  "requires": null,
+  "setup": "Nagkita kayo ni Pia pagkatapos ng maraming taon. 'May kailangan ako,' sabi niya. 'Isang pirma lang. Para sa kapatid ko.'",
+  "setup_en": "You meet Pia again after many years. 'I need something,' she says. 'Just one signature. For my sibling.'",
+  "choices": [
+    {
+      "label": "Sige, pipirma ako.",
+      "label_en": "Fine, I'll sign.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 2
+      }
+    },
+    {
+      "label": "Hindi ko kaya.",
+      "label_en": "I can't.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 13
+      },
+      "success": {
+        "text": "Tumaas ang dangal mo.",
+        "text_en": "Your honor grows.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Nasalanta si Pia. Bumaba ang samahan.",
+        "text_en": "Pia is hurt. Ties weaken.",
+        "effects": {
+          "stats": {
+            "komunidad": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Tulungan kitang mahanap ng ibang paraan.",
+      "label_en": "Let's find another way.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 13
+      },
+      "success": {
+        "text": "May nakitang paraan.",
+        "text_en": "You find another way.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Hindi sapat, pero sinubokan mo.",
+        "text_en": "Not enough, but you tried.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Hindi na kita kilala.",
+      "label_en": "I don't know you anymore.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "rejected_pia"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +2 -> Singil."
+}

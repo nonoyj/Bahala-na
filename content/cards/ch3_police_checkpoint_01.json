@@ -1,0 +1,88 @@
+{
+  "id": "ch3_police_checkpoint_01",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "police",
+  "title": "Ang Checkpoint",
+  "title_en": "The Checkpoint",
+  "tags": [
+    "police",
+    "padrino"
+  ],
+  "requires": null,
+  "setup": "May nahuli kang driver na walang lisensya. Bumulong siya: 'Settle na lang, sir. Pang-merienda lang.' May dala siyang anak na may sakit.",
+  "setup_en": "You catch a driver without a license. He whispers: 'Let's just settle it, sir. For merienda.' He carries a sick child.",
+  "choices": [
+    {
+      "label": "Hindi. Ticket ang tama.",
+      "label_en": "No. A ticket is right.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 14
+      },
+      "success": {
+        "text": "By the book. Tumatagalog ang dangal mo.",
+        "text_en": "By the book. Your honor holds.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Nagmakaawa siya. Nasaktan ka, pero nanatili ka.",
+        "text_en": "He begs. It hurts, but you held.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Sige, settle na.",
+      "label_en": "Fine, settle it.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "pera": 1,
+          "integridad": -1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Tulungan kitang makuha ang lisensya.",
+      "label_en": "Let's help you get a license.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 13
+      },
+      "success": {
+        "text": "Tumulong ang mga kapitbahay. Maayos ang lisensya.",
+        "text_en": "Neighbors help. The license is sorted.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Mabagal, pero sinubukan mo.",
+        "text_en": "Slow, but you tried.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Bahala ka na.",
+      "label_en": "Figure it out yourself.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "let_driver"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +1 -> Singil."
+}

@@ -1,0 +1,80 @@
+{
+  "id": "ch4_assembly_02",
+  "chapter": 4,
+  "pool": "ch4",
+  "role": null,
+  "title": "Ang Pagkukumpol",
+  "title_en": "The Gathering",
+  "tags": [
+    "climax",
+    "assembly"
+  ],
+  "requires": null,
+  "systemic": true,
+  "setup": "Nagsalita si Nurse Lea — ang unang boses. 'Hindi ito aksidente. May resibo, pero walang proyekto.' Tahimik ang lahat. Hinihintay kung sino ang susunod.",
+  "setup_en": "Nurse Lea speaks — the first voice. 'This wasn't an accident. There's a receipt, but no project.' Everyone is quiet. They wait to see who speaks next.",
+  "choices": [
+    {
+      "label": "Susuporta ako kay Nurse Lea.",
+      "label_en": "I'll support Nurse Lea.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 16,
+        "systemic": true,
+        "kasama": true,
+        "echoes": true
+      },
+      "success": {
+        "text": "Sumama ka. Sumama rin ang mga Galit na Kapitbahay.",
+        "text_en": "You join. The Angry Neighbors join too.",
+        "effects": {
+          "voices": 2,
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Sumama ka. Isang boses pa.",
+        "text_en": "You join. One more voice.",
+        "effects": {
+          "voices": 1,
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Magsasalita ako nang mag-isa.",
+      "label_en": "I'll speak alone.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 17,
+        "systemic": true
+      },
+      "success": {
+        "text": "Tumayo ka nang mag-isa. Isang boses pa.",
+        "text_en": "You stand alone. One more voice.",
+        "effects": {
+          "voices": 1,
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Mahirap, pero nagsalita ka. Isang boses pa.",
+        "text_en": "It's hard, but you spoke. One more voice.",
+        "effects": {
+          "voices": 1,
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Mananatili akong tahimik.",
+      "label_en": "I'll stay quiet.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {}
+    }
+  ],
+  "callback": "Voice count +1/+2. Cascade builds toward Worried Parents."
+}

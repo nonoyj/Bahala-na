@@ -1,0 +1,30 @@
+[
+  {
+    "id": "small_town",
+    "label": "Maliit na bayan / rural na barangay",
+    "label_en": "Small town / rural barangay",
+    "text": "Attend your next barangay assembly. Ask to see the posted budget. Bring one neighbor.",
+    "text_en": "Attend your next barangay assembly. Ask to see the posted budget. Bring one neighbor."
+  },
+  {
+    "id": "city",
+    "label": "Barangay sa lungsod",
+    "label_en": "City barangay",
+    "text": "Find your barangay's posted budget (barangay hall wall or website). Ask one question about it at the next assembly.",
+    "text_en": "Find your barangay's posted budget (barangay hall wall or website). Ask one question about it at the next assembly."
+  },
+  {
+    "id": "school",
+    "label": "Komunidad ng paaralan",
+    "label_en": "School community",
+    "text": "Ask your school's PTA or SGC to post the budget. Offer to help make it readable.",
+    "text_en": "Ask your school's PTA or SGC to post the budget. Offer to help make it readable."
+  },
+  {
+    "id": "general",
+    "label": "Heneral",
+    "label_en": "General",
+    "text": "Ask one local official one question about a local project. Write down the answer. Share it with one neighbor.",
+    "text_en": "Ask one local official one question about a local project. Write down the answer. Share it with one neighbor."
+  }
+]

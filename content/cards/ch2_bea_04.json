@@ -1,0 +1,96 @@
+{
+  "id": "ch2_bea_04",
+  "chapter": 2,
+  "pool": "ch2",
+  "title": "Bea, Mas Malaking Pabor",
+  "title_en": "Bea's Bigger Favor",
+  "tags": [
+    "school",
+    "utang",
+    "integridad"
+  ],
+  "requires": {
+    "any_flags": [
+      "silent_copy"
+    ],
+    "utang_min": 1
+  },
+  "setup": "May malaking exam bukas at hindi pa rin nakapag-review si Bea. 'Isang beses na lang, please. Pag hindi ako pumasa, lagot ako kay Nanay.'",
+  "setup_en": "There's a big exam tomorrow and Bea still hasn't reviewed. 'Just one more time, please. If I fail, Nanay will be furious.'",
+  "choices": [
+    {
+      "label": "Hindi. Pero tutulungan kitang mag-review ngayon.",
+      "label_en": "No. But I'll help you review now.",
+      "type": "collective",
+      "roll": {
+        "stat": "talino",
+        "dc": 12
+      },
+      "success": {
+        "text": "Pumasa si Bea nang patas.",
+        "text_en": "Bea passes fairly.",
+        "effects": {
+          "stats": {
+            "talino": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Pagod kayong dalawa, pero sinubukan mo.",
+        "text_en": "You're both exhausted, but you tried.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Sige, kopya ka na lang.",
+      "label_en": "Fine, just copy.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 2
+      }
+    },
+    {
+      "label": "Hindi ko 'yan pipirmahan.",
+      "label_en": "I won't sign off on that.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 12
+      },
+      "success": {
+        "text": "Naiintindihan ka ni Bea, kahit nasaktan.",
+        "text_en": "Bea understands, even if hurt.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Nagalit si Bea. Nasaktan ang samahan.",
+        "text_en": "Bea is angry. The bond is hurt.",
+        "effects": {
+          "stats": {
+            "komunidad": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Bahala ka.",
+      "label_en": "Do what you want.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "left_bea"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +2 -> Singil. left_bea -> Ch3."
+}

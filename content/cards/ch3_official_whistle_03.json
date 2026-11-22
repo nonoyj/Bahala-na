@@ -1,0 +1,92 @@
+{
+  "id": "ch3_official_whistle_03",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "official",
+  "title": "Ang Whistleblower",
+  "title_en": "The Whistleblower",
+  "tags": [
+    "official",
+    "whistleblower"
+  ],
+  "requires": null,
+  "setup": "May lumapit sa'yo — isang kawani. 'May ghost project. May resibo pero walang ginawa.' May dala siyang ebidensya, pero natatakot siya.",
+  "setup_en": "Someone approaches you — a clerk. 'There's a ghost project. There's a receipt but nothing was built.' She brought evidence, but she's scared.",
+  "choices": [
+    {
+      "label": "Tulungan kitang i-expose.",
+      "label_en": "Let's expose it together.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 16
+      },
+      "success": {
+        "text": "Nalantad. Tumaas ang tiwala ng bayan.",
+        "text_en": "It's exposed. The town's trust rises.",
+        "effects": {
+          "tiwala": 2,
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Mayamaya, may paghihiganti. Pero nasubukan mo.",
+        "text_en": "Retaliation follows. But you tried.",
+        "effects": {
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "I-report ko nang pribado.",
+      "label_en": "I'll report it privately.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Tahimik na imbestigasyon. Tumatakbo.",
+        "text_en": "A quiet investigation begins.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Natabunan. Bumaba ang koneksyon.",
+        "text_en": "It's buried. Ties weaken.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sabihin mo kay Kuya Jun.",
+      "label_en": "Tell Kuya Jun.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Wala akong narinig.",
+      "label_en": "I heard nothing.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "ignored_whistle"
+        ]
+      }
+    }
+  ],
+  "callback": "spoke_up -> Ch4. Ghost project -> Ch4."
+}

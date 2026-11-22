@@ -1,0 +1,96 @@
+{
+  "id": "ch2_fixer_05",
+  "chapter": 2,
+  "pool": "ch2",
+  "title": "Kuya Jun, ang Fixer",
+  "title_en": "Kuya Jun, the Fixer",
+  "tags": [
+    "barangay",
+    "padrino",
+    "koneksyon"
+  ],
+  "requires": null,
+  "setup": "May problema ang pamilya mo — hindi maayos ang papeles sa munisipyo. Lumapit si Kuya Jun, nakangiti. 'Ako na bahala. Kilala ko ang lahat doon.'",
+  "setup_en": "Your family has a problem — the papers at the municipal hall aren't in order. Kuya Jun approaches, smiling. 'I'll take care of it. I know everyone there.'",
+  "choices": [
+    {
+      "label": "Salamat, Kuya.",
+      "label_en": "Thanks, Kuya.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1,
+          "koneksyon": 1
+        },
+        "utang": 2
+      }
+    },
+    {
+      "label": "Aayusin ko nang ako lang.",
+      "label_en": "I'll fix it myself.",
+      "type": "honest",
+      "roll": {
+        "stat": "diskarte",
+        "dc": 13
+      },
+      "success": {
+        "text": "Naayos mo ang papeles nang sarili mo.",
+        "text_en": "You fix the papers on your own.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Naiwan ang papeles. Bumaba ang pera, pero natuto ka.",
+        "text_en": "The papers are delayed. Money drops, but you learn.",
+        "effects": {
+          "stats": {
+            "pera": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Isama ko si Aling Cora, baka alam niya.",
+      "label_en": "I'll bring Aling Cora, she might know.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 12,
+        "dc_if_flag": {
+          "flag": "helped_cora",
+          "dc": 10
+        }
+      },
+      "success": {
+        "text": "Tumulong si Aling Cora. Naayos.",
+        "text_en": "Aling Cora helps. It's fixed.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Naiwan, pero natulungan ka ni Aling Cora.",
+        "text_en": "Still delayed, but Aling Cora helps you understand.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Hayaan ko na lang si Nanay.",
+      "label_en": "Let Nanay handle it.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "let_nanay2"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +2 -> Singil. Kuya Jun -> recurring fixer (Ch3)."
+}

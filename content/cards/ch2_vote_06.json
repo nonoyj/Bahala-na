@@ -1,0 +1,94 @@
+{
+  "id": "ch2_vote_06",
+  "chapter": 2,
+  "pool": "ch2",
+  "title": "Bilhan ng Boto",
+  "title_en": "Vote Buying",
+  "tags": [
+    "family",
+    "padrino",
+    "politika"
+  ],
+  "requires": null,
+  "setup": "Pista sa baryo at may nag-aalok ng ₱500 sa bawat boto. 'Pang-merienda lang 'to,' sabi ni Kuya Jun. 'Wala naman masama.'",
+  "setup_en": "It's the barrio fiesta and someone is offering ₱500 per vote. 'It's just for merienda,' says Kuya Jun. 'Nothing wrong with that.'",
+  "choices": [
+    {
+      "label": "Sige, isang boto lang.",
+      "label_en": "Fine, one vote.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "pera": 1,
+          "integridad": -1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Hindi po, salamat.",
+      "label_en": "No, thank you.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 12
+      },
+      "success": {
+        "text": "Naginhawa ka. Tumatagalog ang kumpiyansa mo.",
+        "text_en": "You feel lighter. Your confidence holds.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Nainis si Kuya Jun. Bumaba ang koneksyon.",
+        "text_en": "Kuya Jun is offended. Ties weaken.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sabihin ko sa mga kapitbahay.",
+      "label_en": "I'll tell the neighbors.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Tatlong kapitbahay ang tumanggi. Tumaas ang tiwala ng bayan.",
+        "text_en": "Three neighbors refuse. The town's trust rises.",
+        "effects": {
+          "tiwala": 1,
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Kakaibo ang tingin. Pero nasabi mo.",
+        "text_en": "Awkward looks. But you spoke.",
+        "effects": {
+          "stats": {
+            "komunidad": -1
+          },
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Hindi ko problema.",
+      "label_en": "Not my problem.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "walangKibo": 1
+      }
+    }
+  ],
+  "callback": "Utang +1 -> Singil. spoke_up -> Organizer career."
+}

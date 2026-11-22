@@ -1,0 +1,94 @@
+{
+  "id": "ch3_citizen_vote_03",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "citizen",
+  "title": "Ang ₱500",
+  "title_en": "The ₱500",
+  "tags": [
+    "citizen",
+    "padrino"
+  ],
+  "requires": null,
+  "setup": "Gabi bago ang eleksyon. May nag-abot sa'yo ng ₱500. 'Pang-merienda lang. Wala namang masama.'",
+  "setup_en": "The night before the election. Someone hands you ₱500. 'It's just for merienda. Nothing wrong with that.'",
+  "choices": [
+    {
+      "label": "Tatanggapin ko.",
+      "label_en": "I'll take it.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "pera": 1,
+          "integridad": -1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Hindi po, salamat.",
+      "label_en": "No, thank you.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 12
+      },
+      "success": {
+        "text": "Tumaas ang dangal mo.",
+        "text_en": "Your honor grows.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Bumaba ang koneksyon.",
+        "text_en": "Ties weaken.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sabihin ko sa mga kapitbahay.",
+      "label_en": "I'll tell the neighbors.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Tatlo ang tumanggi. Tumaas ang tiwala.",
+        "text_en": "Three refuse. Trust rises.",
+        "effects": {
+          "tiwala": 1,
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "Bumaba ang samahan, pero nasabi mo.",
+        "text_en": "Ties weaken, but you spoke.",
+        "effects": {
+          "stats": {
+            "komunidad": -1
+          },
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Hindi ko problema.",
+      "label_en": "Not my problem.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "walangKibo": 1
+      }
+    }
+  ],
+  "callback": "Utang +1 -> Singil. spoke_up -> Ch4."
+}
