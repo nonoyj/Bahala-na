@@ -1,0 +1,72 @@
+{
+  "id": "ch1_pirma_04",
+  "chapter": 1,
+  "pool": "ch1",
+  "title": "Pirma ni Nanay",
+  "title_en": "Nanay's Signature",
+  "tags": [
+    "family",
+    "padrino",
+    "koneksyon"
+  ],
+  "requires": null,
+  "setup": "Field trip bukas, pero kailangan ng pirma ng magulang. Nasa abroad si Nanay at si Tatay ay nasa bukid pa. Sabi ni Ate Pia: 'Ako na ang pipirma. Para lang makasama ka.'",
+  "setup_en": "Field trip tomorrow, but you need a parent's signature. Nanay is abroad and Tatay is still in the fields. Ate Pia says: 'I'll sign it for you. So you can come.'",
+  "choices": [
+    {
+      "label": "Salamat, Ate.",
+      "label_en": "Thanks, Ate.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1,
+          "koneksyon": 1
+        },
+        "utang": 1
+      }
+    },
+    {
+      "label": "Magpapaalam ako kay Ma'am nang diretso.",
+      "label_en": "I'll ask Ma'am directly.",
+      "type": "honest",
+      "roll": {
+        "stat": "talino",
+        "dc": 10
+      },
+      "success": {
+        "text": "Pumayag si Ma'am. Natuto kang magpakatotoo.",
+        "text_en": "Ma'am agrees. You learn to tell it straight.",
+        "effects": {
+          "stats": {
+            "talino": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Na-miss mo ang field trip, pero natuto ka.",
+        "text_en": "You miss the trip, but you learn.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          },
+          "flags": [
+            "missed_trip"
+          ]
+        }
+      }
+    },
+    {
+      "label": "Hindi na lang ako sasama.",
+      "label_en": "I'll just stay home.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "stayed_home"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +1 -> Singil. missed_trip -> Ch2 (Ma'am remembers honesty)."
+}

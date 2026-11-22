@@ -1,0 +1,93 @@
+{
+  "id": "ch3_official_friend_02",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "official",
+  "title": "Ang Pabor sa Kaibigan",
+  "title_en": "A Friend's Favor",
+  "tags": [
+    "official",
+    "padrino"
+  ],
+  "requires": null,
+  "setup": "Lumapit ang kaibigan mong si RC Dizon. 'Isang kontrata lang. Hindi naman mahalaga kung sino ang manalo.' Alam mong siya ang magbubuild.",
+  "setup_en": "Your friend RC Dizon approaches. 'Just one contract. It doesn't matter who wins.' You know his company will build it.",
+  "choices": [
+    {
+      "label": "Hindi. Bidding ang tama.",
+      "label_en": "No. Bidding is the right way.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 14
+      },
+      "success": {
+        "text": "Nanatili ang patas na bidding.",
+        "text_en": "Fair bidding holds.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Nagalit si RC. Bumaba ang koneksyon.",
+        "text_en": "RC is angry. Ties weaken.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sige, ikaw na.",
+      "label_en": "Fine, it's yours.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 2,
+        "flags": [
+          "ghost_seed"
+        ],
+        "tiwala": -2
+      }
+    },
+    {
+      "label": "Ipa-bid natin nang bukas.",
+      "label_en": "Let's bid it openly.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Bukas ang bidding. Tumaas ang tiwala.",
+        "text_en": "The bid opens. Trust rises.",
+        "effects": {
+          "tiwala": 1
+        }
+      },
+      "fail": {
+        "text": "Namanipulaan pa rin, pero sinubukan mo.",
+        "text_en": "It's rigged anyway, but you tried.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Bahala na sila.",
+      "label_en": "Leave them to it.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "let_contract"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +2 -> Singil. Ghost project -> Ch4."
+}

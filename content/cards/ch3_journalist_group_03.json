@@ -1,0 +1,102 @@
+{
+  "id": "ch3_journalist_group_03",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "organizer",
+  "title": "Ang Pagod na Grupo",
+  "title_en": "The Tired Group",
+  "tags": [
+    "organizer",
+    "burnout"
+  ],
+  "requires": null,
+  "setup": "Ang grupo mo ay pagod na. 'Wala namang nangyayari,' sabi nila. May nagsasabing umalis na lang.",
+  "setup_en": "Your group is tired. 'Nothing ever changes,' they say. Someone suggests just leaving.",
+  "choices": [
+    {
+      "label": "Magpahinga tayo, tapos tuloy.",
+      "label_en": "Let's rest, then continue.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 14
+      },
+      "success": {
+        "text": "Nagpahinga, bumalik mas malakas.",
+        "text_en": "They rest and return stronger.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "May umalis, pero nanatili ang ubod.",
+        "text_en": "Some leave, but the core stays.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Mag-isa akong tutuloy.",
+      "label_en": "I'll continue alone.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Tumuloy ka nang mag-isa.",
+        "text_en": "You continue alone.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Pagod na pagod ka na. Burnout.",
+        "text_en": "You burn out.",
+        "effects": {
+          "flags": [
+            "burned_out"
+          ]
+        }
+      }
+    },
+    {
+      "label": "Maghanap ng bagong kaalyado.",
+      "label_en": "Find new allies.",
+      "type": "diskarte",
+      "roll": {
+        "stat": "diskarte",
+        "dc": 14
+      },
+      "success": {
+        "text": "Bagong kaalyado.",
+        "text_en": "New allies.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Mabagal, pero sinubokan mo.",
+        "text_en": "Slow, but you tried.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Kayo na lang ang bahala.",
+      "label_en": "You all decide.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "left_group"
+        ]
+      }
+    }
+  ],
+  "callback": "burned_out -> Ending 8. left_group -> Ch4 (absent)."
+}

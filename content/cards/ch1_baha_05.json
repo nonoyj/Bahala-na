@@ -1,0 +1,90 @@
+{
+  "id": "ch1_baha_05",
+  "chapter": 1,
+  "pool": "ch1",
+  "title": "Baha sa Kalye",
+  "title_en": "The Flooded Street",
+  "tags": [
+    "barangay",
+    "komunidad",
+    "diskarte"
+  ],
+  "requires": null,
+  "setup": "Malakas ang ulan at binaha ang kalye. Si Aling Cora ay nagbubuhat ng mga paninda papasok sa bahay niya, pero hanggang bewang na ang tubig. 'Tulungan mo ako, anak.'",
+  "setup_en": "Heavy rain floods the street. Aling Cora is carrying her goods into her house, but the water is waist-deep. 'Help me, anak.'",
+  "choices": [
+    {
+      "label": "Sige po, buhatin natin.",
+      "label_en": "Yes, ma'am, let's carry them.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 10
+      },
+      "success": {
+        "text": "Nagkasabuyan kayo. Natago nang maayos ang paninda.",
+        "text_en": "You work together. The goods are saved.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "flags": [
+            "helped_cora"
+          ]
+        }
+      },
+      "fail": {
+        "text": "Nadulas ka, pero natulungan mo pa rin si Aling Cora.",
+        "text_en": "You slip, but you still help Aling Cora.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          },
+          "flags": [
+            "helped_cora"
+          ]
+        }
+      }
+    },
+    {
+      "label": "May payong at bota ako, gamitin natin.",
+      "label_en": "I have an umbrella and boots, let's use them.",
+      "type": "diskarte",
+      "roll": {
+        "stat": "diskarte",
+        "dc": 12
+      },
+      "success": {
+        "text": "Mayamaya, may tumulong pang isa. Maayos ang tinda.",
+        "text_en": "Soon another neighbor joins. The stall is saved.",
+        "effects": {
+          "stats": {
+            "pera": 1,
+            "komunidad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Nabasa ang gamit mo. Masama ang loob.",
+        "text_en": "Your gear gets soaked. Frustrating.",
+        "effects": {
+          "stats": {
+            "pera": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Umuwi na lang ako.",
+      "label_en": "I'll just go home.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "walked_past"
+        ]
+      }
+    }
+  ],
+  "callback": "helped_cora -> Ch2 Card 5 / Ch3. walked_past -> Ch3."
+}

@@ -1,0 +1,90 @@
+{
+  "id": "ch3_teacher_receipts_02",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "teacher",
+  "title": "Ang Resibo",
+  "title_en": "The Receipts",
+  "tags": [
+    "teacher",
+    "integrity"
+  ],
+  "requires": null,
+  "setup": "Sabi ng principal: 'Itaas mo ang resibo ng classroom fund. Maliit lang, para may pang-ayos tayo.' Alam mong hindi totoo ang numero.",
+  "setup_en": "The principal says: 'Inflate the classroom fund receipts. It's small, so we can do repairs.' You know the number is false.",
+  "choices": [
+    {
+      "label": "Hindi. Totoo ang ilalagay ko.",
+      "label_en": "No. I'll put the truth.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 14
+      },
+      "success": {
+        "text": "Tama ang numero. Tumaas ang dangal mo.",
+        "text_en": "The number stays true. Your honor grows.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Malamlam ang principal. Bumaba ang koneksyon.",
+        "text_en": "The principal turns cold. Ties weaken.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sige, itaas ko.",
+      "label_en": "Fine, I'll inflate it.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 1,
+        "tiwala": -1
+      }
+    },
+    {
+      "label": "Ipa-audit natin.",
+      "label_en": "Let's have it audited.",
+      "type": "collective",
+      "roll": {
+        "stat": "talino",
+        "dc": 14
+      },
+      "success": {
+        "text": "Na-audit. Tumaas ang tiwala.",
+        "text_en": "It's audited. Trust rises.",
+        "effects": {
+          "tiwala": 1
+        }
+      },
+      "fail": {
+        "text": "Tumanggi sila, pero sinubukan mo.",
+        "text_en": "They resist, but you tried.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Bahala na.",
+      "label_en": "Leave it be.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "inflated_receipts"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +1 -> Singil."
+}

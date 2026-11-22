@@ -1,0 +1,90 @@
+[
+  {
+    "roll": 1,
+    "id": "mahirap",
+    "name": "Mahirap na pamilya",
+    "name_en": "Low-income family",
+    "bonus": {
+      "komunidad": 2,
+      "diskarte": 1
+    },
+    "penalty": {
+      "pera": -1,
+      "talino": -1
+    },
+    "text": "Mahirap na pamilya. Close ang samahan, pero tight ang pera.",
+    "text_en": "Low-income family. Close bonds, tight money."
+  },
+  {
+    "roll": 2,
+    "id": "vendor",
+    "name": "Pamilya ng vendor/driver",
+    "name_en": "Vendor/driver family",
+    "bonus": {
+      "diskarte": 2
+    },
+    "penalty": {
+      "koneksyon": -1
+    },
+    "text": "Pamilya ng vendor/driver. Marunong makibagay, walang koneksyon.",
+    "text_en": "Vendor/driver family. Street-smart, no connections."
+  },
+  {
+    "roll": 3,
+    "id": "ofw",
+    "name": "Pamilyang OFW",
+    "name_en": "OFW family",
+    "bonus": {
+      "pera": 2
+    },
+    "penalty": {
+      "komunidad": -1
+    },
+    "text": "Pamilyang OFW. May padala, pero malayo ang pamilya.",
+    "text_en": "OFW family. Remittances come, but family is far."
+  },
+  {
+    "roll": 4,
+    "id": "kawani",
+    "name": "Pamilya ng kawani",
+    "name_en": "Government employee family",
+    "bonus": {
+      "koneksyon": 2
+    },
+    "penalty": {},
+    "bonus_note": "More favors offered early (higher Utang risk).",
+    "penalty_note": "More favors offered early (higher Utang risk).",
+    "text": "Pamilya ng kawani. Maraming kakilala, madaming alok na pabor.",
+    "text_en": "Government employee family. Many acquaintances, many favors offered."
+  },
+  {
+    "roll": 5,
+    "id": "negosyo",
+    "name": "Pamilyang may negosyo",
+    "name_en": "Business-owning family",
+    "bonus": {
+      "pera": 2,
+      "koneksyon": 1
+    },
+    "penalty": {
+      "komunidad": -1
+    },
+    "text": "Pamilyang may negosyo. Komportable, pero abala.",
+    "text_en": "Business-owning family. Comfortable, but busy."
+  },
+  {
+    "roll": 6,
+    "id": "guro",
+    "name": "Pamilyang guro/propesyonal",
+    "name_en": "Teacher/professional family",
+    "bonus": {
+      "talino": 2,
+      "integridad": 1
+    },
+    "penalty": {
+      "pera": -1
+    },
+    "text": "Pamilyang guro/propesyonal. Masinop sa aralin, tight ang pera.",
+    "text_en": "Teacher/professional family. Strong in study, tight money."
+  }
+]

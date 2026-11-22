@@ -1,0 +1,93 @@
+{
+  "id": "ch3_teacher_cement_01",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "teacher",
+  "title": "Ang Semento",
+  "title_en": "The Cement",
+  "tags": [
+    "engineer",
+    "integrity"
+  ],
+  "requires": null,
+  "setup": "Pinapapirma ka sa materyales ng proyekto. Alam mong kulang ang semento — mas maraming buhangin. 'Standard 'yan,' sabi ng contractor.",
+  "setup_en": "You're asked to sign off on project materials. You know the cement is short — too much sand. 'That's standard,' says the contractor.",
+  "choices": [
+    {
+      "label": "Hindi ko pipirmahan.",
+      "label_en": "I won't sign.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Tumanggi ka. Tumaas ang dangal mo.",
+        "text_en": "You refuse. Your honor grows.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Pinipiga ka, pero tumanggi ka.",
+        "text_en": "You're pressured, but you refused.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sige, pirma na.",
+      "label_en": "Fine, I'll sign.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 2,
+        "flags": [
+          "ghost_seed"
+        ],
+        "tiwala": -2
+      }
+    },
+    {
+      "label": "Ipa-test natin ang materyales.",
+      "label_en": "Let's test the materials.",
+      "type": "collective",
+      "roll": {
+        "stat": "talino",
+        "dc": 15
+      },
+      "success": {
+        "text": "Lumabas ang tama. Tumaas ang tiwala.",
+        "text_en": "The truth comes out. Trust rises.",
+        "effects": {
+          "tiwala": 1
+        }
+      },
+      "fail": {
+        "text": "Hinadlangan, pero sinubokan mo.",
+        "text_en": "Blocked, but you tried.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Hindi ko napansin.",
+      "label_en": "I didn't notice.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "signed_cement"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +2 -> Singil. Ghost project -> Ch4."
+}

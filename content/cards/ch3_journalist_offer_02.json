@@ -1,0 +1,89 @@
+{
+  "id": "ch3_journalist_offer_02",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "organizer",
+  "title": "Ang Alok",
+  "title_en": "The Offer",
+  "tags": [
+    "journalist",
+    "threat"
+  ],
+  "requires": null,
+  "setup": "May lumapit sa'yo na may alok — pera, para tumigil ka sa pag-iimbestiga. 'Para sa pamilya mo,' sabi niya. Hindi ito banta, pero parang banta.",
+  "setup_en": "Someone approaches you with an offer — money, to stop investigating. 'For your family,' they say. It's not a threat, but it feels like one.",
+  "choices": [
+    {
+      "label": "Hindi ako titigil.",
+      "label_en": "I won't stop.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 16
+      },
+      "success": {
+        "text": "Tumuloy ka. Tumaas ang dangal mo.",
+        "text_en": "You continue. Your honor grows.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Tumindi ang pressure, pero nanatili ka.",
+        "text_en": "Pressure grows, but you held.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Tatanggapin ko.",
+      "label_en": "I'll take it.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "pera": 2,
+          "integridad": -1
+        },
+        "utang": 2,
+        "tiwala": -2
+      }
+    },
+    {
+      "label": "I-document ko ang alok.",
+      "label_en": "I'll document the offer.",
+      "type": "diskarte",
+      "roll": {
+        "stat": "diskarte",
+        "dc": 15
+      },
+      "success": {
+        "text": "May ebidensya ka na.",
+        "text_en": "You have proof.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Denay sila, pero may tala ka.",
+        "text_en": "They deny it, but you took notes.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Titigil na lang ako.",
+      "label_en": "I'll just stop.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "stopped_investigating"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +2 -> Singil. stopped_investigating -> Ch4 (absent from cascade)."
+}

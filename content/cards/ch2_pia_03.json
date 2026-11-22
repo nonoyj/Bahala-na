@@ -1,0 +1,100 @@
+{
+  "id": "ch2_pia_03",
+  "chapter": 2,
+  "pool": "ch2",
+  "title": "Pia, Mas Malaking Pabor",
+  "title_en": "Pia's Bigger Favor",
+  "tags": [
+    "school",
+    "utang",
+    "integridad"
+  ],
+  "requires": {
+    "any_flags": [
+      "saw_it"
+    ],
+    "utang_min": 1
+  },
+  "setup": "Lumapit si Pia, kinakabahan. 'Kailangan kong sabihin kay Ma'am Lourdes na ikaw ang kumuha ng ambagan. Hindi ko kaya… pero ikaw, pwede.'",
+  "setup_en": "Pia approaches you, nervous. 'I need to tell Ma'am Lourdes that you took the donation money. I can't do it… but you can.'",
+  "choices": [
+    {
+      "label": "Hindi. Hindi ko 'yan gagawin.",
+      "label_en": "No. I won't do that.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 13
+      },
+      "success": {
+        "text": "Nagalit si Pia, pero iginagalang ka niya.",
+        "text_en": "Pia is upset, but she respects you.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Kumalat ang tsismis. Nasaktan ang samahan.",
+        "text_en": "Rumors spread. The group is hurt.",
+        "effects": {
+          "stats": {
+            "komunidad": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sige, ako na ang magsabi.",
+      "label_en": "Fine, I'll be the one to tell.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1,
+          "komunidad": -1
+        },
+        "utang": 2
+      }
+    },
+    {
+      "label": "Sabihin natin ang totoo, tayong dalawa.",
+      "label_en": "Let's tell the truth, both of us.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 14
+      },
+      "success": {
+        "text": "Naging maayos ang lahat. Mas malasakit kayo.",
+        "text_en": "It works out. You grow closer.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "flags": [
+            "told_truth"
+          ]
+        }
+      },
+      "fail": {
+        "text": "Nadismaya si Ma'am sa inyong dalawa, pero tama ang ginawa ninyo.",
+        "text_en": "Ma'am is disappointed in both of you, but you did right.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Bahala ka na, Pia.",
+      "label_en": "Figure it out yourself, Pia.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "left_pia"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +2 -> Singil. left_pia -> Ch3."
+}

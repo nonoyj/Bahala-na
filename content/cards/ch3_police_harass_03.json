@@ -1,0 +1,89 @@
+{
+  "id": "ch3_police_harass_03",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "police",
+  "title": "Ang Reklamo",
+  "title_en": "The Complaint",
+  "tags": [
+    "police",
+    "justice"
+  ],
+  "requires": null,
+  "setup": "May kapitbahay na nagreklamo — hinaharas daw siya ng isang makapangyarihan. 'Takot ako, pero kailangan kong magsalita.'",
+  "setup_en": "A neighbor files a complaint — she says someone powerful is harassing her. 'I'm scared, but I need to speak.'",
+  "choices": [
+    {
+      "label": "Iimbestigahan ko.",
+      "label_en": "I'll investigate.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Tumakbo ang kaso.",
+        "text_en": "The case moves.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Natigil, pero sinubukan mo.",
+        "text_en": "It stalls, but you tried.",
+        "effects": {}
+      }
+    },
+    {
+      "label": "Tulungan kitang magsampa nang ligtas.",
+      "label_en": "Let's file it safely, together.",
+      "type": "collective",
+      "roll": {
+        "stat": "komunidad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Ligtas ang pagsampa. Tumaas ang tiwala.",
+        "text_en": "It's filed safely. Trust grows.",
+        "effects": {
+          "stats": {
+            "komunidad": 1
+          },
+          "spokeUp": true
+        }
+      },
+      "fail": {
+        "text": "May banta, pero nasubukan mo.",
+        "text_en": "A threat comes, but you tried.",
+        "effects": {
+          "spokeUp": true
+        }
+      }
+    },
+    {
+      "label": "Sabihin mo na lang kay Kap Eddie.",
+      "label_en": "Just tell Kap Eddie.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "passed_complaint"
+        ]
+      }
+    },
+    {
+      "label": "Wala akong magagawa.",
+      "label_en": "I can't do anything.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "ignored_harass"
+        ]
+      }
+    }
+  ],
+  "callback": "spoke_up -> Ch4."
+}

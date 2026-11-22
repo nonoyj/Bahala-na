@@ -1,0 +1,96 @@
+{
+  "id": "ch3_police_report_02",
+  "chapter": 3,
+  "pool": "ch3_role",
+  "role": "police",
+  "title": "Ang Report",
+  "title_en": "The Report",
+  "tags": [
+    "police",
+    "pressure"
+  ],
+  "requires": null,
+  "setup": "Sabi ng superior mo: 'Palambutin mo ang report. Huwag mong banggitin ang pangalan ng konsehal.' Alam mong may nangyari.",
+  "setup_en": "Your superior says: 'Soften the report. Don't mention the councilor's name.' You know something happened.",
+  "choices": [
+    {
+      "label": "Hindi ko babaguhin.",
+      "label_en": "I won't change it.",
+      "type": "honest",
+      "roll": {
+        "stat": "integridad",
+        "dc": 15
+      },
+      "success": {
+        "text": "Natuto ang report nang totoo.",
+        "text_en": "The report stays true.",
+        "effects": {
+          "stats": {
+            "integridad": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "Prinimahedral ka. Bumaba ang koneksyon.",
+        "text_en": "You're reprimanded. Ties weaken.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Sige, palambutin ko.",
+      "label_en": "Fine, I'll soften it.",
+      "type": "padrino",
+      "roll": null,
+      "effects": {
+        "stats": {
+          "integridad": -1
+        },
+        "utang": 1,
+        "tiwala": -1
+      }
+    },
+    {
+      "label": "Isama ko ang katotohanan, pero maingat.",
+      "label_en": "I'll keep the truth, but carefully.",
+      "type": "diskarte",
+      "roll": {
+        "stat": "diskarte",
+        "dc": 14
+      },
+      "success": {
+        "text": "Nakapasok ang totoo nang ligtas.",
+        "text_en": "The truth gets in, safely.",
+        "effects": {
+          "stats": {
+            "diskarte": 1
+          }
+        }
+      },
+      "fail": {
+        "text": "May nakapansin. Bumaba ang koneksyon.",
+        "text_en": "They notice. Ties weaken.",
+        "effects": {
+          "stats": {
+            "koneksyon": -1
+          }
+        }
+      }
+    },
+    {
+      "label": "Hindi ko alam.",
+      "label_en": "I don't know.",
+      "type": "huwag",
+      "roll": null,
+      "effects": {
+        "flags": [
+          "softened_report"
+        ]
+      }
+    }
+  ],
+  "callback": "Utang +1 -> Singil."
+}
