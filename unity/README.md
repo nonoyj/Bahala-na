@@ -5,7 +5,7 @@ Unity 6.3 LTS · 2D URP · C# · Firebase (Firestore / Auth / Functions / Remote
 > **Status:** authored scaffold — the full game logic and UI flow are implemented in C#; art/animation and scene polish are the remaining frontend work. Open `unity/` as a Unity project (see README steps).
 
 ## Quick start
-1. Open Unity Hub → **Add project from disk** → select the `unity/` folder (Unity **6.3 LTS**, version `6000.0.x`).
+1. Open Unity Hub → **Add project from disk** → select the `unity/` folder (Unity **6.3 LTS**, version `6000.3.29f1`).
 2. Let packages resolve (`manifest.json` pins UGUI, TextMeshPro, Newtonsoft.Json, Addressables).
 3. **Bahala Na → Export Content** (menu) — copies `../../content/*` into `Assets/StreamingAssets/Content/` (already committed, but re-run after content edits).
 4. Open any scene (or create an empty one) and press Play — `GameApp` bootstraps itself (`RuntimeInitializeOnLoadMethod`), builds a Canvas, and shows the main menu.
@@ -15,7 +15,7 @@ Unity 6.3 LTS · 2D URP · C# · Firebase (Firestore / Auth / Functions / Remote
 ```
 unity/
   Packages/manifest.json      UGUI 2.0.0 · TMP 3.0.6 · Newtonsoft.Json 3.2.1 · Addressables 2.1.19
-  ProjectSettings/ProjectVersion.txt   6000.0.31f1
+  ProjectSettings/ProjectVersion.txt   6000.3.29f1 (Unity 6.3 LTS)
   Assets/
     Editor/ContentExport.cs   menu: re-export content from ../../content
     StreamingAssets/Content/  runtime content source (manifest + cards/ + extras)
