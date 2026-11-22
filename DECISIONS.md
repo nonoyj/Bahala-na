@@ -48,3 +48,8 @@ Locked decisions (HANDOFF §D.1) are **not** overridden by anything below; where
 ## D-010 — Verification
 **Decision.** `scripts/simulate.js` (3,000 runs: no crashes, stats 0–10, all 10 endings reachable) + a jsdom end-to-end playthrough.
 **Impact.** Balance levers (DCs, backgrounds, contribution) can be re-tuned via `scripts/content_*.py` and re-simulated.
+
+## D-011 — Branch scoped to backend (PR scope)
+**Context.** The user owns **backend**; other contributors own **frontend** (Unity client, UI, world hub, animations).
+**Decision.** This branch/PR carries backend artifacts only: `API_CONTRACT.md`, `js/engine.js` (rules + Shared Barangay logic), `content/` data + pipeline, `scripts/simulate.js`, and the docs. The prototype web UI demo (`index.html`, `css/`, `js/ui.js`, `js/main.js`, `assets/`) is **excluded** from the PR so it does not collide with frontend work.
+**Impact.** Frontend contributors build the Unity client against the frozen `API_CONTRACT.md`; `js/engine.js` remains the reference implementation of the rules. D-001/D-002 describe the prototype demo only as a validation vehicle — do not treat its localStorage write path as the backend.
