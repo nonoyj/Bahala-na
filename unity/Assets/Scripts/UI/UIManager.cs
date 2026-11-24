@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace BahalaNa.UI
 {
+    // Concrete MonoBehaviour so UIManager can host coroutines without being a component itself.
+    public class UIRunner : MonoBehaviour { }
+
     public class UIManager
     {
         public Canvas Canvas { get; private set; }
@@ -16,9 +19,14 @@ namespace BahalaNa.UI
         {
             var host = new GameObject("UIHost");
             UnityEngine.Object.DontDestroyOnLoad(host);
-            Host = host.AddComponent<MonoBehaviour>();
+            Host = host.AddComponent<UIRunner>();
             var go = new GameObject("BahalaNaCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             UnityEngine.Object.DontDestroyOnLoad(go);
+            if (UnityEngine.EventSystems.EventSystem.current == null)
+            {
+                var es = new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem), typeof(UnityEngine.EventSystems.StandaloneInputModule));
+                UnityEngine.Object.DontDestroyOnLoad(es);
+            }
             Canvas = go.GetComponent<Canvas>();
             Canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             var scaler = go.GetComponent<CanvasScaler>();

@@ -1,4 +1,4 @@
-// Bahala Na? — content database.
+﻿// Bahala Na? — content database.
 // Loads exported JSON asynchronously (editor: StreamingAssets via File; device: UnityWebRequest),
 // driven by content/manifest.json so card files can be enumerated inside an APK.
 using System;
@@ -27,7 +27,7 @@ namespace BahalaNa
         public static void LoadAsync(Action<ContentDatabase> onDone)
         {
             var go = new GameObject("BahalaNaContentLoader");
-            go.AddComponent<ContentLoader>().Start(LoadRoutine(onDone));
+            go.AddComponent<ContentLoader>().Begin(LoadRoutine(onDone));
         }
 
         private static IEnumerator LoadRoutine(Action<ContentDatabase> onDone)
@@ -136,7 +136,7 @@ namespace BahalaNa
             public string contentVersion;
         }
 
-        public class ContentLoader : MonoBehaviour { public void Start(IEnumerator routine) { StartCoroutine(routine); } }
+        public class ContentLoader : MonoBehaviour { public void Begin(IEnumerator routine) { StartCoroutine(routine); } }
 
         // ---------------------------------------------------------------- lookups
         public Card Card(string id) => CardById.ContainsKey(id) ? CardById[id] : null;
@@ -209,12 +209,12 @@ namespace BahalaNa
         {
             switch (key)
             {
-                case "talino": return "🧠";
-                case "diskarte": return "🛠️";
-                case "pera": return "💰";
-                case "koneksyon": return "🤝";
-                case "integridad": return "⚖️";
-                case "komunidad": return "🏘️";
+                case "talino": return "";
+                case "diskarte": return "";
+                case "pera": return "";
+                case "koneksyon": return "";
+                case "integridad": return "";
+                case "komunidad": return "";
                 default: return "•";
             }
         }
@@ -223,11 +223,11 @@ namespace BahalaNa
         {
             return new List<CascadeGroup>
             {
-                new CascadeGroup { id = "brave", threshold = 0, name = "Ang Matapang (Nurse Lea)", name_en = "The Brave (Nurse Lea)", icon = "✊" },
-                new CascadeGroup { id = "angry", threshold = 1, name = "Mga Galit na Kapitbahay", name_en = "The Angry Neighbors", icon = "🔥" },
-                new CascadeGroup { id = "worried", threshold = 2, name = "Mga Nag-aalalang Magulang", name_en = "The Worried Parents", icon = "👪" },
-                new CascadeGroup { id = "vendors", threshold = 3, name = "Mga Maingat na Vendedor", name_en = "The Cautious Vendors", icon = "🧺" },
-                new CascadeGroup { id = "silent", threshold = 4, name = "Ang Silent Majority", name_en = "The Silent Majority", icon = "🤫" },
+                new CascadeGroup { id = "brave", threshold = 0, name = "Ang Matapang (Nurse Lea)", name_en = "The Brave (Nurse Lea)", icon = "" },
+                new CascadeGroup { id = "angry", threshold = 1, name = "Mga Galit na Kapitbahay", name_en = "The Angry Neighbors", icon = "" },
+                new CascadeGroup { id = "worried", threshold = 2, name = "Mga Nag-aalalang Magulang", name_en = "The Worried Parents", icon = "" },
+                new CascadeGroup { id = "vendors", threshold = 3, name = "Mga Maingat na Vendedor", name_en = "The Cautious Vendors", icon = "" },
+                new CascadeGroup { id = "silent", threshold = 4, name = "Ang Silent Majority", name_en = "The Silent Majority", icon = "" },
             };
         }
 

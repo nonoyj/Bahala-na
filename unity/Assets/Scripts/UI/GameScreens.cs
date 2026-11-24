@@ -1,4 +1,4 @@
-// Bahala Na? — gameplay screens: card, roll sheet, outcome, climax, endings.
+﻿// Bahala Na? — gameplay screens: card, roll sheet, outcome, climax, endings.
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,16 +43,16 @@ namespace BahalaNa.UI
             foreach (var g in content.Groups)
             {
                 bool joined = r.cascade.Contains(g.id);
-                UIBuilder.Text(vv, (joined ? "🔊 " : "· ") + content.T(g.name, g.name_en, lang) +
+                UIBuilder.Text(vv, (joined ? " " : "· ") + content.T(g.name, g.name_en, lang) +
                     "  <size=12>(" + GameApp.T("threshold", "threshold") + " " + g.threshold + ")</size>",
                     14f, joined ? UIBuilder.Teal : UIBuilder.InkDim);
             }
             if (r.spokeFirst)
-                Widgets.Chip(vv, "⭐ " + GameApp.T("Ikaw ang nagsalita nang una.", "You spoke first."), UIBuilder.Gold);
+                Widgets.Chip(vv, " " + GameApp.T("Ikaw ang nagsalita nang una.", "You spoke first."), UIBuilder.Gold);
             else if (r.joinedCascade)
-                Widgets.Chip(vv, "🔊 " + GameApp.T("Sumama ka sa cascade.", "You joined the cascade."), UIBuilder.Teal);
+                Widgets.Chip(vv, " " + GameApp.T("Sumama ka sa cascade.", "You joined the cascade."), UIBuilder.Teal);
             else if (r.silentClimax)
-                Widgets.Chip(vv, "🤫 " + GameApp.T("Tahimik ka sa climax.", "You stayed silent at the climax."), UIBuilder.InkDim);
+                Widgets.Chip(vv, " " + GameApp.T("Tahimik ka sa climax.", "You stayed silent at the climax."), UIBuilder.InkDim);
 
             BuildChoices(c);
         }
@@ -93,7 +93,7 @@ namespace BahalaNa.UI
             // hidden-utang hint (never a number — §C.6 / §D)
             var hint = GameApp.Save.UtangHint();
             if (!string.IsNullOrEmpty(hint))
-                Widgets.Chip(inner, "🌫️ " + hint, UIBuilder.InkDim);
+                Widgets.Chip(inner, " " + hint, UIBuilder.InkDim);
 
             // HUD stats
             var statsGo = new GameObject("Stats", typeof(RectTransform));
@@ -130,7 +130,7 @@ namespace BahalaNa.UI
                 string label = icon + " " + GameApp.Content.T(ch.label, ch.label_en, lang);
                 bool isPadrino = ch.type == "padrino" || ch.type == "comply";
                 if (isPadrino && !GameApp.Game.HasIntegrityForPadrino)
-                    label += "  🔒";
+                    label += "  ";
 
                 if (ch.roll == null)
                 {
@@ -151,8 +151,8 @@ namespace BahalaNa.UI
                 }
             }
 
-            Widgets.Normal(al, GameApp.T("💾 I-save", "💾 Save"), () => { GameApp.Save.Save(); Widgets.Body(al, GameApp.T("Naka-save.", "Saved."), 13f); });
-            Widgets.Normal(al, GameApp.T("🏳️ I-withdraw", "🏳️ Withdraw"), () =>
+            Widgets.Normal(al, GameApp.T(" I-save", " Save"), () => { GameApp.Save.Save(); Widgets.Body(al, GameApp.T("Naka-save.", "Saved."), 13f); });
+            Widgets.Normal(al, GameApp.T(" I-withdraw", " Withdraw"), () =>
                 UI.Show(new ConfirmScreen(
                     GameApp.T("Tiyak ka?", "Are you sure?"),
                     GameApp.T("I-withdraw mo ang desisyon. Magtatapos ang buhay na ito.", "You are withdrawing. This life ends."),
@@ -163,14 +163,14 @@ namespace BahalaNa.UI
         {
             switch (type)
             {
-                case "honest": return "⚖️";
-                case "padrino": return "🤝";
-                case "comply": return "📝";
-                case "collective": return "🫂";
-                case "huwag": return "🤫";
-                case "diskarte": return "🛠️";
-                case "pera": return "💰";
-                case "escape": return "🚪";
+                case "honest": return "";
+                case "padrino": return "";
+                case "comply": return "";
+                case "collective": return "";
+                case "huwag": return "";
+                case "diskarte": return "";
+                case "pera": return "";
+                case "escape": return "";
                 default: return "•";
             }
         }
@@ -228,10 +228,10 @@ namespace BahalaNa.UI
             var echoN = GameApp.Game.EchoPoolAvailable;
             if (roll.kasama && kasamaN > 0)
             {
-                UIBuilder.Toggle(c, "🫂 " + GameApp.T("Kasama", "Kasama") + " (+" + kasamaN + "d4)", useKasama, v => { useKasama = v; RefreshNote(); });
+                UIBuilder.Toggle(c, " " + GameApp.T("Kasama", "Kasama") + " (+" + kasamaN + "d4)", useKasama, v => { useKasama = v; RefreshNote(); });
             }
             if (roll.echoes && echoN > 0)
-                UIBuilder.Toggle(c, "📣 " + GameApp.T("Mga Echo", "Echoes") + " (+" + echoN + "d6)", useEchoes, v => { useEchoes = v; RefreshNote(); });
+                UIBuilder.Toggle(c, " " + GameApp.T("Mga Echo", "Echoes") + " (+" + echoN + "d6)", useEchoes, v => { useEchoes = v; RefreshNote(); });
 
             var amt = new GameObject("Assists", typeof(RectTransform));
             amt.transform.SetParent(c, false);
@@ -262,8 +262,8 @@ namespace BahalaNa.UI
             var hlg = row.AddComponent<HorizontalLayoutGroup>();
             hlg.spacing = 8f; hlg.childControlWidth = true; hlg.childForceExpandWidth = true; hlg.childForceExpandHeight = false;
             Widgets.Normal(rowRt, "←", () => UI.Show(new GameScreen()));
-            Widgets.Primary(rowRt, "🎲 " + GameApp.T("I-roll", "Roll"), () => Roll());
-            Widgets.Primary(rowRt, "▶ " + GameApp.T("Tuloy", "Proceed"), () => Proceed());
+            Widgets.Primary(rowRt, " " + GameApp.T("I-roll", "Roll"), () => Roll());
+            Widgets.Primary(rowRt, " " + GameApp.T("Tuloy", "Proceed"), () => Proceed());
 
             RefreshNote();
         }
@@ -290,7 +290,7 @@ namespace BahalaNa.UI
             var color = result.success ? UIBuilder.Green : UIBuilder.Red;
             string headline;
             if (result.auto) headline = GameApp.T("TULOY — auto-success (may halaga)", "THROUGH — auto-success (it costs)");
-            else if (result.crit) headline = result.success ? "🎯 " + GameApp.T("CRITICAL — TAGUMPAY", "CRITICAL — SUCCESS") : "💥 " + GameApp.T("CRITICAL — MALAKING SAKUNA", "CRITICAL — MAJOR CONSEQUENCE");
+            else if (result.crit) headline = result.success ? " " + GameApp.T("CRITICAL — TAGUMPAY", "CRITICAL — SUCCESS") : " " + GameApp.T("CRITICAL — MALAKING SAKUNA", "CRITICAL — MAJOR CONSEQUENCE");
             else headline = result.success ? GameApp.T("TAGUMPAY", "SUCCESS") : GameApp.T("MABIGO", "FAILURE");
 
             if (!result.auto)
@@ -299,9 +299,9 @@ namespace BahalaNa.UI
             if (!string.IsNullOrEmpty(result.eraNote))
                 UIBuilder.Text(v, result.eraNote, 13f, UIBuilder.InkDim);
             if (result.kasamaRolls.Count > 0)
-                UIBuilder.Text(v, "🫂 Kasama: " + string.Join(", ", result.kasamaRolls), 13f, UIBuilder.Teal);
+                UIBuilder.Text(v, " Kasama: " + string.Join(", ", result.kasamaRolls), 13f, UIBuilder.Teal);
             if (result.echoRolls.Count > 0)
-                UIBuilder.Text(v, "📣 Echo: " + string.Join(", ", result.echoRolls), 13f, UIBuilder.Teal);
+                UIBuilder.Text(v, " Echo: " + string.Join(", ", result.echoRolls), 13f, UIBuilder.Teal);
         }
 
         private void Proceed()
@@ -347,7 +347,7 @@ namespace BahalaNa.UI
             string headline = passive ? GameApp.T("HINDI MAKIALAM", "MINDING YOUR OWN BUSINESS")
                 : roll == null ? GameApp.T("HINDI", "NO")
                 : roll.auto ? GameApp.T("TULOY", "THROUGH")
-                : roll.crit ? (ok ? "🎯 CRITICAL" : "💥 CRITICAL")
+                : roll.crit ? (ok ? " CRITICAL" : " CRITICAL")
                 : ok ? GameApp.T("TAGUMPAY", "SUCCESS") : GameApp.T("MABIGO", "FAILURE");
 
             UIBuilder.Text(c, headline, 24f, color, TextAlignmentOptions.Center, true);
@@ -355,7 +355,7 @@ namespace BahalaNa.UI
             if (roll != null && !roll.auto)
                 UIBuilder.Text(c, "d20 " + roll.d20 + " + " + roll.mod + " + " + roll.bonus + " = " + roll.total + " vs DC " + roll.dc, 14f, UIBuilder.InkDim);
             if (roll != null && roll.utangClears)
-                Widgets.Chip(c, "🌫️ " + GameApp.T("Nawala ang utang na loob.", "The debt is cleared."), UIBuilder.Green);
+                Widgets.Chip(c, " " + GameApp.T("Nawala ang utang na loob.", "The debt is cleared."), UIBuilder.Green);
 
             if (outcome != null)
             {
@@ -370,15 +370,15 @@ namespace BahalaNa.UI
                             int d = effs.stats.Get(k);
                             if (d != 0) lines.Add(GameApp.StatIcon(k) + " " + GameApp.StatName(k) + " " + (d > 0 ? "+" : "") + d);
                         }
-                    if (effs.utang > 0) lines.Add("🌫️ " + GameApp.T("May nagbihis sa'yo… (+utang)", "Someone covered you… (+debt)"));
-                    if (effs.utangClear) lines.Add("🌫️ " + GameApp.T("Utang: nawala", "Debt: cleared"));
-                    if (effs.tiwala != 0) lines.Add("🏘️ Tiwala " + (effs.tiwala > 0 ? "+" : "") + effs.tiwala);
-                    if (effs.kasama != 0) lines.Add("🫂 Kasama " + (effs.kasama > 0 ? "+" : "") + effs.kasama);
-                    if (effs.voices > 0) lines.Add("🔊 " + GameApp.T("Boses", "Voices") + " +" + effs.voices);
-                    if (effs.spokeUp || effs.spokeFirst) lines.Add("⭐ " + GameApp.T("Nagsalita ka", "You spoke up"));
-                    if (effs.reform) lines.Add("🌅 " + GameApp.T("Reporma", "Reform"));
-                    if (effs.complied) lines.Add("📝 " + GameApp.T("Sumunod ka sa utos", "You complied"));
-                    if (effs.flags != null && effs.flags.Count > 0) lines.Add("🏷️ " + string.Join(", ", effs.flags));
+                    if (effs.utang > 0) lines.Add(" " + GameApp.T("May nagbihis sa'yo… (+utang)", "Someone covered you… (+debt)"));
+                    if (effs.utangClear) lines.Add(" " + GameApp.T("Utang: nawala", "Debt: cleared"));
+                    if (effs.tiwala != 0) lines.Add(" Tiwala " + (effs.tiwala > 0 ? "+" : "") + effs.tiwala);
+                    if (effs.kasama != 0) lines.Add(" Kasama " + (effs.kasama > 0 ? "+" : "") + effs.kasama);
+                    if (effs.voices > 0) lines.Add(" " + GameApp.T("Boses", "Voices") + " +" + effs.voices);
+                    if (effs.spokeUp || effs.spokeFirst) lines.Add(" " + GameApp.T("Nagsalita ka", "You spoke up"));
+                    if (effs.reform) lines.Add(" " + GameApp.T("Reporma", "Reform"));
+                    if (effs.complied) lines.Add(" " + GameApp.T("Sumunod ka sa utos", "You complied"));
+                    if (effs.flags != null && effs.flags.Count > 0) lines.Add(" " + string.Join(", ", effs.flags));
                     foreach (var l in lines)
                         UIBuilder.Text(c, "• " + l, 14f, UIBuilder.InkDim);
                 }
@@ -398,7 +398,7 @@ namespace BahalaNa.UI
             for (int i = 0; i < GameApp.Game.StatKeys.Length && i < vals.Length; i++)
                 Widgets.HudStat(stRt, GameApp.StatIcon(GameApp.Game.StatKeys[i]), GameApp.StatName(GameApp.Game.StatKeys[i]), vals[i], mods[i]);
 
-            Widgets.Primary(c, "▶ " + GameApp.T("Magpatuloy", "Continue"), () => {
+            Widgets.Primary(c, " " + GameApp.T("Magpatuloy", "Continue"), () => {
                 GameApp.Game.LastPhase = null;
                 GameApp.Game.NextCard();
                 var run = GameApp.Game.Run;
@@ -434,7 +434,7 @@ namespace BahalaNa.UI
             foreach (var g in content.Groups)
             {
                 bool joined = r != null && r.cascade.Contains(g.id);
-                UIBuilder.Text(vv, (joined ? "🔊 " : "· ") + content.T(g.name, g.name_en, lang), 15f, joined ? UIBuilder.Teal : UIBuilder.InkDim);
+                UIBuilder.Text(vv, (joined ? " " : "· ") + content.T(g.name, g.name_en, lang), 15f, joined ? UIBuilder.Teal : UIBuilder.InkDim);
             }
 
             if (reform)
@@ -448,7 +448,7 @@ namespace BahalaNa.UI
             var pool = GameApp.Save.Barangay.echoes;
             if (pool != null && pool.Count > 0)
             {
-                UIBuilder.Toggle(c, "📣 " + GameApp.T("Iwan ang isang echo sa Barangay", "Leave an echo in the Barangay"), leaveEcho, v =>
+                UIBuilder.Toggle(c, " " + GameApp.T("Iwan ang isang echo sa Barangay", "Leave an echo in the Barangay"), leaveEcho, v =>
                 {
                     leaveEcho = v;
                     if (v && string.IsNullOrEmpty(echoChoice)) echoChoice = pool[0];
@@ -471,7 +471,7 @@ namespace BahalaNa.UI
                 }
             }
 
-            Widgets.Primary(c, "▶ " + GameApp.T("Magpatuloy", "Continue"), () =>
+            Widgets.Primary(c, " " + GameApp.T("Magpatuloy", "Continue"), () =>
             {
                 GameApp.Game.PendingEchoId = leaveEcho ? echoChoice : null;
                 GameApp.Game.FinishRun();
@@ -502,7 +502,7 @@ namespace BahalaNa.UI
 
             // redemption note (§B.14)
             if (GameApp.Game.Redemption())
-                Widgets.Chip(c, "🌅 " + GameApp.T("Pagbawi: hindi pa huli ang lahat.", "Redemption: it's not too late."), UIBuilder.Gold);
+                Widgets.Chip(c, " " + GameApp.T("Pagbawi: hindi pa huli ang lahat.", "Redemption: it's not too late."), UIBuilder.Gold);
 
             // starting line note
             var bg = content.BackgroundById(r.background);
@@ -521,11 +521,11 @@ namespace BahalaNa.UI
                         " · Tiwala " + (s.tiwala >= 0 ? "+" : "") + s.tiwala +
                         " · Walang Kibo +" + s.walangKibo, 14f, UIBuilder.InkDim);
                 if (GameApp.Game.LastSubmit.crossed60)
-                    Widgets.Chip(c, "🌅 " + GameApp.T("Tumawid sa 60 — Gumigising!", "Crossed 60 — Awakening!"), UIBuilder.Gold);
+                    Widgets.Chip(c, " " + GameApp.T("Tumawid sa 60 — Gumigising!", "Crossed 60 — Awakening!"), UIBuilder.Gold);
                 if (st != null)
                 {
                     var era = content.EraById(st.era);
-                    Widgets.Chip(c, "■ " + GameApp.EraName(era) + " · " + GameApp.Save.SpokeUpPct() + "% " + GameApp.T("nagsalita", "spoke up"), UIBuilder.Teal);
+                    Widgets.Chip(c, " " + GameApp.EraName(era) + " · " + GameApp.Save.SpokeUpPct() + "% " + GameApp.T("nagsalita", "spoke up"), UIBuilder.Teal);
                 }
             }
 
@@ -538,8 +538,8 @@ namespace BahalaNa.UI
                 Widgets.Body(c, content.T(ask.text, ask.text_en, lang), 14f);
             }
 
-            Widgets.Primary(c, "↻ " + GameApp.T("Buhay muli", "Live again"), () => { GameApp.Save.Run = null; GameApp.Save.Save(); UI.Show(new MainMenuScreen()); });
-            Widgets.Normal(c, GameApp.T("🏘️ Barangay", "🏘️ Barangay"), () => UI.Show(new BarangayScreen()));
+            Widgets.Primary(c, " " + GameApp.T("Buhay muli", "Live again"), () => { GameApp.Save.Run = null; GameApp.Save.Save(); UI.Show(new MainMenuScreen()); });
+            Widgets.Normal(c, GameApp.T(" Barangay", " Barangay"), () => UI.Show(new BarangayScreen()));
         }
     }
 

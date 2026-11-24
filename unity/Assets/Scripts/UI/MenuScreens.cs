@@ -1,4 +1,4 @@
-// Bahala Na? — main menu, Character Spark, chapter intro, career pick.
+﻿// Bahala Na? — main menu, Character Spark, chapter intro, career pick.
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,14 +21,14 @@ namespace BahalaNa.UI
             var era = GameApp.Save.Era();
             if (era != null)
             {
-                Widgets.Chip(c, "■ " + GameApp.EraName(era) + " · " + GameApp.Save.SpokeUpPct() + "% " +
+                Widgets.Chip(c, " " + GameApp.EraName(era) + " · " + GameApp.Save.SpokeUpPct() + "% " +
                     GameApp.T("nagsalita", "spoke up") + " · tipping point 40%", UIBuilder.Teal);
             }
 
-            Widgets.Primary(c, "▶  " + GameApp.T("Maglaro", "Play"), () => UI.Show(new SparkScreen()));
+            Widgets.Primary(c, "  " + GameApp.T("Maglaro", "Play"), () => UI.Show(new SparkScreen()));
 
             if (GameApp.Save.Run != null && !GameApp.Save.Run.ended)
-                Widgets.Normal(c, "↻  " + GameApp.T("Magpatuloy", "Continue"), () =>
+                Widgets.Normal(c, "  " + GameApp.T("Magpatuloy", "Continue"), () =>
                 {
                     var r = GameApp.Save.Run;
                     if (r == null) return;
@@ -36,11 +36,11 @@ namespace BahalaNa.UI
                     else UI.Show(new GameScreen());
                 });
 
-            Widgets.Normal(c, "🏘️  " + GameApp.T("Barangay", "Barangay"), () => UI.Show(new BarangayScreen()));
-            Widgets.Normal(c, "📣  " + GameApp.T("Mga Echo", "Echoes"), () => UI.Show(new EchoesScreen()));
-            Widgets.Normal(c, "❓  " + GameApp.T("Paano Maglaro", "How to Play"), () => UI.Show(new HowToScreen()));
-            Widgets.Normal(c, "⚙️  " + GameApp.T("Settings", "Settings"), () => UI.Show(new SettingsScreen()));
-            Widgets.Normal(c, "ℹ️  " + GameApp.T("Tungkol", "About"), () => UI.Show(new AboutScreen()));
+            Widgets.Normal(c, "  " + GameApp.T("Barangay", "Barangay"), () => UI.Show(new BarangayScreen()));
+            Widgets.Normal(c, "  " + GameApp.T("Mga Echo", "Echoes"), () => UI.Show(new EchoesScreen()));
+            Widgets.Normal(c, "  " + GameApp.T("Paano Maglaro", "How to Play"), () => UI.Show(new HowToScreen()));
+            Widgets.Normal(c, "  " + GameApp.T("Settings", "Settings"), () => UI.Show(new SettingsScreen()));
+            Widgets.Normal(c, "  " + GameApp.T("Tungkol", "About"), () => UI.Show(new AboutScreen()));
 
             var backend = GameApp.FirebaseBackendActive
                 ? GameApp.T("Firebase: konektado", "Firebase: connected")
@@ -70,9 +70,9 @@ namespace BahalaNa.UI
 
             Widgets.Body(c, GameApp.T("Presentation", "Presentation"), 16f);
             var presOpts = new List<string> {
-                GameApp.T("👦 Batang lalaki", "Boy"),
-                GameApp.T("👧 Batang babae", "Girl"),
-                GameApp.T("🧒 Neutral", "Neutral")
+                GameApp.T(" Batang lalaki", "Boy"),
+                GameApp.T(" Batang babae", "Girl"),
+                GameApp.T(" Neutral", "Neutral")
             };
             string[] presIds = { "boy", "girl", "neutral" };
             Widgets.Segmented(c, presOpts.ToArray(), 2, idx => presentation = presIds[idx]);
@@ -96,8 +96,8 @@ namespace BahalaNa.UI
             var hlg = row.AddComponent<HorizontalLayoutGroup>();
             hlg.spacing = 8f; hlg.childControlWidth = true; hlg.childForceExpandWidth = true;
             Widgets.Normal(rowRt, GameApp.T("← Bumalik", "← Back"), () => UI.Show(new MainMenuScreen()));
-            Widgets.Primary(rowRt, "🎲 " + GameApp.T("I-roll ang d6", "Roll d6"), () => Roll());
-            Widgets.Primary(rowRt, GameApp.T("Simulan ▶", "Start ▶"), () => Start());
+            Widgets.Primary(rowRt, " " + GameApp.T("I-roll ang d6", "Roll d6"), () => Roll());
+            Widgets.Primary(rowRt, GameApp.T("Simulan ", "Start "), () => Start());
         }
 
         private void Roll()
@@ -116,7 +116,7 @@ namespace BahalaNa.UI
             var img = card.AddComponent<Image>(); img.color = UIBuilder.Panel2;
 
             var inner = UIBuilder.VList(crt, 4f);
-            UIBuilder.Text(inner, "d6 → " + bg.roll, 16f, UIBuilder.InkDim);
+            UIBuilder.Text(inner, "d6  " + bg.roll, 16f, UIBuilder.InkDim);
             UIBuilder.Text(inner, GameApp.Content.T(bg.name, bg.name_en, GameApp.Save.Settings.lang), 22f, UIBuilder.Gold, TextAlignmentOptions.Center, true);
             UIBuilder.Text(inner, GameApp.Content.T(bg.text, bg.text_en, GameApp.Save.Settings.lang), 15f, UIBuilder.InkDim);
         }
@@ -151,7 +151,7 @@ namespace BahalaNa.UI
             Widgets.Title(c, GameApp.T(info.name, info.nameEn));
             Widgets.Sub(c, GameApp.T(info.desc, info.descEn));
             Widgets.Sub(c, GameApp.T("Edad", "Ages") + ": " + info.ages + " · " + info.cards + " " + GameApp.T("na card", "cards"));
-            Widgets.Primary(c, GameApp.T("Magpatuloy ▶", "Continue ▶"), () => UI.Show(new GameScreen()));
+            Widgets.Primary(c, GameApp.T("Magpatuloy ", "Continue "), () => UI.Show(new GameScreen()));
         }
 
         private static (string name, string nameEn, string desc, string descEn, string ages, int cards) ChapterInfo(int ch)
@@ -196,11 +196,11 @@ namespace BahalaNa.UI
         {
             switch (c)
             {
-                case "official": return "🏛️ " + GameApp.T("Opisyal / Barangay-City Official", "Barangay/City Official");
-                case "police": return "🛡️ " + GameApp.T("Pulis", "Police Officer");
-                case "teacher": return "📐 " + GameApp.T("Guro / Municipal Engineer", "Teacher / Municipal Engineer");
-                case "organizer": return "📣 " + GameApp.T("Community Organizer / Mamamahayag", "Community Organizer / Journalist");
-                default: return "🧑‍🌾 " + GameApp.T("Ordinaryong Mamamayan", "Ordinary Working Citizen");
+                case "official": return " " + GameApp.T("Opisyal / Barangay-City Official", "Barangay/City Official");
+                case "police": return " " + GameApp.T("Pulis", "Police Officer");
+                case "teacher": return " " + GameApp.T("Guro / Municipal Engineer", "Teacher / Municipal Engineer");
+                case "organizer": return " " + GameApp.T("Community Organizer / Mamamahayag", "Community Organizer / Journalist");
+                default: return "‍ " + GameApp.T("Ordinaryong Mamamayan", "Ordinary Working Citizen");
             }
         }
 

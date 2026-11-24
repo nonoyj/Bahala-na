@@ -1,4 +1,4 @@
-// Bahala Na? — info screens: Barangay, Echoes, How to Play, Settings, About.
+﻿// Bahala Na? — info screens: Barangay, Echoes, How to Play, Settings, About.
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -15,7 +15,7 @@ namespace BahalaNa.UI
             var era = GameApp.Save.Era();
 
             Widgets.Page(Root, out var c);
-            Widgets.Title(c, "🏘️ " + GameApp.T("Barangay", "Barangay"));
+            Widgets.Title(c, " " + GameApp.T("Barangay", "Barangay"));
             Widgets.Sub(c, GameApp.T("Ang town na pinagsasaluhan ng lahat ng player.", "The town shared by every player."));
 
             Widgets.Sub(c, era != null ? GameApp.EraName(era) : "—");
@@ -47,7 +47,7 @@ namespace BahalaNa.UI
         {
             var lang = GameApp.Lang;
             Widgets.Page(Root, out var c);
-            Widgets.Title(c, "📣 " + GameApp.T("Mga Echo", "Echoes"));
+            Widgets.Title(c, " " + GameApp.T("Mga Echo", "Echoes"));
             Widgets.Sub(c, GameApp.T("Mga boses mula sa ibang buhay. Pwede silang gamitin sa Ch4 (+1d6, max 2/roll).",
                 "Voices from other lives. Usable in Ch4 (+1d6, max 2/roll)."));
 
@@ -76,7 +76,7 @@ namespace BahalaNa.UI
         {
             var lang = GameApp.Lang;
             Widgets.Page(Root, out var c);
-            Widgets.Title(c, "❓ " + GameApp.T("Paano Maglaro", "How to Play"));
+            Widgets.Title(c, " " + GameApp.T("Paano Maglaro", "How to Play"));
             string[] lines = {
                 GameApp.T("1. Pumili ng buhay (Character Spark): pangalan + presentation + d6 background.", "1. Pick a life (Character Spark): name + presentation + d6 background."),
                 GameApp.T("2. Apat na kabanata, 18 card bawat buhay. Bawat card, isang desisyon.", "2. Four chapters, 18 cards per life. Every card, one decision."),
@@ -98,7 +98,7 @@ namespace BahalaNa.UI
         protected override void BuildContent()
         {
             Widgets.Page(Root, out var c);
-            Widgets.Title(c, "⚙️ " + GameApp.T("Settings", "Settings"));
+            Widgets.Title(c, " " + GameApp.T("Settings", "Settings"));
 
             var s = GameApp.Save.Settings;
             Widgets.Sub(c, GameApp.T("Wika / Language", "Wika / Language"));
@@ -132,7 +132,7 @@ namespace BahalaNa.UI
                     GameApp.Save.Save();
                 });
 
-            Widgets.Normal(c, GameApp.T("🗑️ I-reset ang save", "🗑️ Reset save"), () =>
+            Widgets.Normal(c, GameApp.T(" I-reset ang save", " Reset save"), () =>
             {
                 GameApp.Save.Reset();
                 GameApp.Save.Run = null;
@@ -147,7 +147,7 @@ namespace BahalaNa.UI
         protected override void BuildContent()
         {
             Widgets.Page(Root, out var c);
-            Widgets.Title(c, "ℹ️ " + GameApp.T("Tungkol", "About"));
+            Widgets.Title(c, " " + GameApp.T("Tungkol", "About"));
             Widgets.Sub(c, "BAHALA NA?");
             Widgets.Body(c, GameApp.T(
                 "Isang maikling dice-driven na card game tungkol sa isang barangay, sa utang na loob, at sa boses na mahirap gamitin. Walang tunay na tao, partido, o ahensya.",
