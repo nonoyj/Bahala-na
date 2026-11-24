@@ -31,8 +31,8 @@ namespace BahalaNa.UI
             Canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             var scaler = go.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(520f, 960f);
-            scaler.matchWidthOrHeight = 0.5f;
+            scaler.referenceResolution = new Vector2(1920f, 1080f);
+            scaler.matchWidthOrHeight = 1f;
 
             var bg = new GameObject("Background", typeof(Image));
             bg.transform.SetParent(go.transform, false);
@@ -45,8 +45,14 @@ namespace BahalaNa.UI
             var root = new GameObject("ScreenRoot", typeof(RectTransform));
             root.transform.SetParent(go.transform, false);
             ScreenRoot = root.GetComponent<RectTransform>();
-            ScreenRoot.anchorMin = Vector2.zero; ScreenRoot.anchorMax = Vector2.one;
-            ScreenRoot.offsetMin = Vector2.zero; ScreenRoot.offsetMax = Vector2.zero;
+            // Centred content column. Full height, fixed width, so screens built
+            // against the 1920x1080 reference stay readable in landscape instead
+            // of stretching edge to edge.
+            ScreenRoot.anchorMin = new Vector2(0.5f, 0f);
+            ScreenRoot.anchorMax = new Vector2(0.5f, 1f);
+            ScreenRoot.pivot = new Vector2(0.5f, 0.5f);
+            ScreenRoot.sizeDelta = new Vector2(1180f, 0f);
+            ScreenRoot.anchoredPosition = Vector2.zero;
         }
 
         public void Show(IScreen screen)
