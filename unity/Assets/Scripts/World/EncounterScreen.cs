@@ -52,7 +52,8 @@ namespace BahalaNa.UI
             if (art != null)
             {
                 bgImg.sprite = art;
-                bgImg.preserveAspect = false;
+                // keep aspect so buildings don't stretch
+                bgImg.preserveAspect = true;
                 bgImg.color = Color.white;
             }
             else
@@ -71,12 +72,16 @@ namespace BahalaNa.UI
             dimImg.raycastTarget = false;
 
             // ------------------------------------------------ content row
+            // Centred, width-limited layout. The canvas is 1920 wide; without a
+            // limit the portrait and interior both blow up to fill it.
             var rowGo = new GameObject("Row", typeof(RectTransform));
             rowGo.transform.SetParent(Root, false);
             var rowRt = rowGo.GetComponent<RectTransform>();
-            rowRt.anchorMin = Vector2.zero; rowRt.anchorMax = Vector2.one;
-            rowRt.offsetMin = new Vector2(40f, 40f);
-            rowRt.offsetMax = new Vector2(-40f, -40f);
+            rowRt.anchorMin = new Vector2(0.5f, 0f);
+            rowRt.anchorMax = new Vector2(0.5f, 1f);
+            rowRt.pivot = new Vector2(0.5f, 0.5f);
+            rowRt.sizeDelta = new Vector2(1180f, -120f);
+            rowRt.anchoredPosition = Vector2.zero;
 
             var hlg = rowGo.AddComponent<HorizontalLayoutGroup>();
             hlg.spacing = 28f;
@@ -89,9 +94,11 @@ namespace BahalaNa.UI
             // ------------------------------------------------ portrait (left)
             var pGo = new GameObject("Portrait", typeof(RectTransform));
             pGo.transform.SetParent(rowRt, false);
+            // LayoutElement has no maxWidth. preferredWidth + flexibleWidth = 0
+            // pins the width inside a HorizontalLayoutGroup.
             var ple = pGo.AddComponent<LayoutElement>();
-            ple.preferredWidth = 420f;
-            ple.minWidth = 300f;
+            ple.preferredWidth = 330f;
+            ple.minWidth = 330f;
             ple.flexibleWidth = 0f;
 
             var pImg = pGo.AddComponent<Image>();
@@ -113,7 +120,7 @@ namespace BahalaNa.UI
             dGo.transform.SetParent(rowRt, false);
             var dle = dGo.AddComponent<LayoutElement>();
             dle.flexibleWidth = 1f;
-            dle.minWidth = 400f;
+            dle.minWidth = 500f;
 
             var dImg = dGo.AddComponent<Image>();
             dImg.color = new Color32(28, 22, 40, 235);

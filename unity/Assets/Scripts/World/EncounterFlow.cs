@@ -35,6 +35,7 @@ namespace BahalaNa.World
             public GameObject Go;
             public SpriteRenderer Sr;
             public Color BaseColor;      // what it looks like when NOT highlighted
+            public Vector3 BaseScale;    // original scale, never re-multiplied
         }
 
         // ---------------------------------------------------------------- setup
@@ -81,7 +82,9 @@ namespace BahalaNa.World
             foreach (var def in defs)
             {
                 var go = new GameObject("NPC_" + def.Id);
-                go.transform.SetParent(transform, false);
+                // Parent to WorldRoot so HideWorldForEncounter() hides NPCs with the map.
+                var root = _boot != null && _boot.WorldRoot != null ? _boot.WorldRoot.transform : transform;
+                go.transform.SetParent(root, false);
                 go.transform.position = GridUtil.CellToWorld(def.CellX, def.CellY);
 
                 var sr = go.AddComponent<SpriteRenderer>();
@@ -108,17 +111,28 @@ namespace BahalaNa.World
                 // Block the cell so the player can't walk through the NPC.
                 _map.SetBlocked(def.CellX, def.CellY, true);
 
-                _npcs.Add(new NpcInstance { Def = def, Go = go, Sr = sr, BaseColor = baseColor });
+                _npcs.Add(new NpcInstance
+                {
+                    Def = def,
+                    Go = go,
+                    Sr = sr,
+                    BaseColor = baseColor,
+                    BaseScale = go.transform.localScale,
+                });
             }
 
             Debug.Log("[Encounter] Placed " + _npcs.Count + " NPCs. Press F next to one.");
         }
 
+        /// <summary>
+        /// Map sprite only. Deliberately does NOT fall back to the portrait:
+        /// "Art/NPCs/<id>" is the 1024x1024 dialogue portrait, and using it as a
+        /// walk sprite produced giant faces on the plaza. If the walk sheet is
+        /// missing we use the stand-in box instead.
+        /// </summary>
         private static Sprite LoadMapSprite(EncounterDef def)
         {
-            var s = Resources.Load<Sprite>("Art/NPCs/" + def.Id + "_walk");
-            if (s != null) return s;
-            return Resources.Load<Sprite>("Art/NPCs/" + def.Id);
+            return Resources.Load<Sprite>("Art/NPCs/" + def.Id + "_walk");
         }
 
         private static Sprite _standIn;
@@ -164,13 +178,16 @@ namespace BahalaNa.World
         private void SetHighlight(NpcInstance n, bool on)
         {
             if (n == null || n.Sr == null) return;
-            n.Sr.color = on
-                ? new Color(1f, 1f, 1f, n.BaseColor.a)     // brighten on highlight
-                : n.BaseColor;                              // restore the stand-in colour
+
+            // Colour: always derive from BaseColor so this is idempotent.
+            n.Sr.color = on ? new Color(1f, 1f, 1f, n.BaseColor.a) : n.BaseColor;
+
+            // Scale: always derive from BaseScale. Multiplying the current scale
+            // grows the sprite every time the player re-enters range.
             if (n.Go != null)
                 n.Go.transform.localScale = on
-                    ? new Vector3(n.Go.transform.localScale.x * 1.06f, n.Go.transform.localScale.y, 1f)
-                    : n.Go.transform.localScale;
+                    ? n.BaseScale * 1.06f
+                    : n.BaseScale;
         }
 
         // ------------------------------------------------------------- trigger
@@ -179,8 +196,15 @@ namespace BahalaNa.World
             SetHighlight(npc, false);
             _near = null;
 
-            // Hide the world while the encounter UI is up.
+            // Hide the world layer (WorldRoot includes the NPCs) while the UI is up.
             if (_boot != null) _boot.HideWorldForEncounter();
+
+            // The canvas was disabled when the world launched; turn it back on or
+            // the encounter screen is built into a canvas that never renders.
+            var ui = GameApp.UI;
+            if (ui != null && ui.Canvas != null) ui.Canvas.enabled = true;
+            // EventSystem.current is null while inactive — use the stored reference.
+            if (WorldBootstrap.EventSystemGo != null) WorldBootstrap.EventSystemGo.SetActive(true);
 
             GameApp.UI.Show(new EncounterScreen(npc.Def, OnEncounterFinished));
         }
@@ -196,8 +220,7 @@ namespace BahalaNa.World
 
                 var ui = GameApp.UI;
                 if (ui != null && ui.Canvas != null) ui.Canvas.enabled = true;
-                var es = UnityEngine.EventSystems.EventSystem.current;
-                if (es != null) es.gameObject.SetActive(true);
+                if (WorldBootstrap.EventSystemGo != null) WorldBootstrap.EventSystemGo.SetActive(true);
 
                 GameApp.UI.Show(new GameScreen());
             }

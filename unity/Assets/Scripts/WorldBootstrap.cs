@@ -21,6 +21,12 @@ namespace BahalaNa.World
 
         public WorldMap Map { get; private set; }
         public PlayerController Player { get; private set; }
+        public GameObject WorldRoot { get; private set; }
+
+        // EventSystem.current returns null while the object is INACTIVE, so we
+        // must remember the GameObject itself in order to switch it back on.
+        public static GameObject EventSystemGo { get; private set; }
+
         private bool _launched;
 
         private void Start()
@@ -42,7 +48,11 @@ namespace BahalaNa.World
                 return;
             }
 
+            WorldRoot = new GameObject("WorldRoot");
+            WorldRoot.transform.SetParent(transform, false);
+
             var mapGo = new GameObject("WorldMap");
+            mapGo.transform.SetParent(WorldRoot.transform, false);
             Map = mapGo.AddComponent<WorldMap>();
             Map.Build(plaza);
 
@@ -79,6 +89,7 @@ namespace BahalaNa.World
             }).ToArray();
 
             var pGo = new GameObject("Player");
+            pGo.transform.SetParent(WorldRoot.transform, false);
             Player = pGo.AddComponent<PlayerController>();
             Player.Init(Map, slices, Map.DefaultSpawnWorld());
 
@@ -90,10 +101,29 @@ namespace BahalaNa.World
             {
                 ui.Canvas.enabled = false;
                 var es = UnityEngine.EventSystems.EventSystem.current;
-                if (es != null) es.gameObject.SetActive(false);
+                if (es != null)
+                {
+                    EventSystemGo = es.gameObject;      // remember BEFORE disabling
+                    es.gameObject.SetActive(false);
+                }
             }
 
             Debug.Log("[World] Launched. WASD or arrow keys to walk.");
+        }
+
+        /// <summary>Called by EncounterFlow before an encounter UI takes over.</summary>
+        public void HideWorldForEncounter()
+        {
+            if (WorldRoot != null) WorldRoot.SetActive(false);
+        }
+
+        /// <summary>Called when the encounter sequence is finished.</summary>
+        public void ShowWorldAfterEncounter()
+        {
+            if (WorldRoot != null) WorldRoot.SetActive(true);
+            var ui = GameApp.UI;
+            if (ui != null && ui.Canvas != null) ui.Canvas.enabled = false;
+            if (EventSystemGo != null) EventSystemGo.SetActive(false);
         }
 
         public void Shutdown()
