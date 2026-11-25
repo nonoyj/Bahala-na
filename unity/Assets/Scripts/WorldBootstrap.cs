@@ -111,6 +111,23 @@ namespace BahalaNa.World
             Debug.Log("[World] Launched. WASD or arrow keys to walk.");
         }
 
+        private SpriteRenderer _plazaRenderer;
+
+        /// <summary>Chapter colour grade + dimming applied to the plaza art.</summary>
+        public void SetChapterTint(Color tint, float dim)
+        {
+            if (_plazaRenderer == null)
+            {
+                var mapT = transform.Find("WorldRoot/WorldMap/PlazaArt");
+                if (mapT != null) _plazaRenderer = mapT.GetComponent<SpriteRenderer>();
+            }
+            if (_plazaRenderer == null) return;
+
+            var c = tint;
+            float k = Mathf.Clamp01(1f - dim);
+            _plazaRenderer.color = new Color(c.r * k, c.g * k, c.b * k, 1f);
+        }
+
         /// <summary>Called by EncounterFlow before an encounter UI takes over.</summary>
         public void HideWorldForEncounter()
         {

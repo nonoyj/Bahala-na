@@ -22,7 +22,22 @@ namespace BahalaNa.World
         public string[] Lines;        // Tagalog dialogue, in order
         public string[] LinesEn;
 
+        private static List<EncounterDef> _all;
+
+        /// <summary>Cached list — built once, then reused.</summary>
         public static List<EncounterDef> All()
+        {
+            if (_all == null) _all = Build();
+            return _all;
+        }
+
+        public static EncounterDef ById(string id)
+        {
+            foreach (var d in All()) if (d.Id == id) return d;
+            return null;
+        }
+
+        private static List<EncounterDef> Build()
         {
             return new List<EncounterDef>
             {
