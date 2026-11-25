@@ -81,11 +81,16 @@ namespace BahalaNa.World
 
             foreach (var def in defs)
             {
+                // NPCs must stand on walkable ground or the player can never reach
+                // them. If the authored cell is inside a building, spiral outwards
+                // to the nearest free cell.
+                Vector2Int cell = FindOpenCell(def.CellX, def.CellY);
+
                 var go = new GameObject("NPC_" + def.Id);
                 // Parent to WorldRoot so HideWorldForEncounter() hides NPCs with the map.
                 var root = _boot != null && _boot.WorldRoot != null ? _boot.WorldRoot.transform : transform;
                 go.transform.SetParent(root, false);
-                go.transform.position = GridUtil.CellToWorld(def.CellX, def.CellY);
+                go.transform.position = GridUtil.CellToWorld(cell.x, cell.y);
 
                 var sr = go.AddComponent<SpriteRenderer>();
                 sr.sprite = LoadMapSprite(def);
@@ -109,7 +114,7 @@ namespace BahalaNa.World
                 WorldMap.SetDepth(sr, go.transform.position.y);
 
                 // Block the cell so the player can't walk through the NPC.
-                _map.SetBlocked(def.CellX, def.CellY, true);
+                _map.SetBlocked(cell.x, cell.y, true);
 
                 _npcs.Add(new NpcInstance
                 {
@@ -122,6 +127,32 @@ namespace BahalaNa.World
             }
 
             Debug.Log("[Encounter] Placed " + _npcs.Count + " NPCs. Press F next to one.");
+        }
+
+        /// <summary>
+        /// Spiral search for the nearest unblocked cell. Prevents NPCs being
+        /// placed inside buildings when the authored coordinates are approximate.
+        /// </summary>
+        private Vector2Int FindOpenCell(int col, int row)
+        {
+            if (_map == null) return new Vector2Int(col, row);
+            if (!_map.IsBlocked(col, row)) return new Vector2Int(col, row);
+
+            for (int radius = 1; radius <= 12; radius++)
+            {
+                for (int dc = -radius; dc <= radius; dc++)
+                {
+                    for (int dr = -radius; dr <= radius; dr++)
+                    {
+                        // only the ring, not the filled square
+                        if (Mathf.Abs(dc) != radius && Mathf.Abs(dr) != radius) continue;
+                        int c = col + dc, r = row + dr;
+                        if (!_map.IsBlocked(c, r)) return new Vector2Int(c, r);
+                    }
+                }
+            }
+            Debug.LogWarning($"[Encounter] No open cell near ({col},{row})");
+            return new Vector2Int(col, row);
         }
 
         /// <summary>
@@ -209,8 +240,35 @@ namespace BahalaNa.World
             GameApp.UI.Show(new EncounterScreen(npc.Def, OnEncounterFinished));
         }
 
+        /// <summary>
+        /// Starts a fresh run if the player entered the world without going through
+        /// the menu. No-op when a run is already in progress.
+        /// </summary>
+        private void EnsureRun()
+        {
+            if (GameApp.Game == null) return;
+            if (GameApp.Game.Run != null && GameApp.Game.CurrentCard != null) return;
+
+            string name = GameApp.Save != null && GameApp.Save.Profile != null
+                ? GameApp.Save.Profile.name
+                : "";
+            if (string.IsNullOrEmpty(name)) name = "Ikaw";
+
+            if (GameApp.Game.Run == null)
+            {
+                GameApp.Game.NewRun(name, "neutral");
+                GameApp.Game.GoToChapter(1);
+                Debug.Log("[Encounter] Started a run on demand (world launched outside the menu).");
+            }
+        }
+
         private void OnEncounterFinished()
         {
+            // The world can be launched without going through "Maglaro", in which
+            // case there is no run and therefore no card. Start one on demand so
+            // NPC encounters always have something to play.
+            EnsureRun();
+
             // Dialogue done — hand off to the existing card screen.
             if (GameApp.Game != null && GameApp.Game.Run != null && GameApp.Game.CurrentCard != null)
             {
