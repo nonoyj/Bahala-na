@@ -100,7 +100,9 @@ namespace BahalaNa
             LastOutcome = Resolve(card, choice, null);
             LastRoll = null;
             LastChoiceWasPassive = true;
-            NextCard();
+            // Do NOT advance here. OutcomeScreen's Continue button already calls
+            // NextCard(); advancing in both places skipped a card per passive
+            // choice and ran the index past the end of the deck.
         }
 
         public bool ReqOk(Card c)
