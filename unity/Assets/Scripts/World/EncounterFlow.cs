@@ -29,6 +29,10 @@ namespace BahalaNa.World
 
         private int _plannedChapter = -1;
         private GameObject _castRoot;
+        private readonly HashSet<string> _talked = new HashSet<string>();
+        private NpcInstance _suggested;
+        private WorldHud _hud;
+        private float _pulse;
 
         private class NpcInstance
         {
@@ -37,6 +41,8 @@ namespace BahalaNa.World
             public SpriteRenderer Sr;
             public Color BaseColor;
             public Vector3 BaseScale;
+            public Vector2Int Cell;
+            public bool CellWasBlocked;
         }
 
         // ---------------------------------------------------------------- setup
@@ -66,6 +72,10 @@ namespace BahalaNa.World
 
             // Chapter may change while the world is hidden (card resolved).
             RefreshCast();
+
+            UpdateSuggestion();
+            UpdateHud();
+            if (_hud != null) _hud.SetVisible(true);
 
             RefreshNearest();
 
@@ -138,8 +148,21 @@ namespace BahalaNa.World
 
         private void ClearCast()
         {
+            // Un-block the cells the old cast occupied, or the plaza gradually
+            // fills with phantom walls every time the chapter advances.
+            foreach (var n in _npcs)
+            {
+                if (n.Cell.x >= 0)
+                {
+                    _map.SetBlocked(n.Cell.x, n.Cell.y, false);
+                    // restore whatever the painted collision said originally
+                    if (n.CellWasBlocked) _map.SetBlocked(n.Cell.x, n.Cell.y, true);
+                }
+            }
+
             _npcs.Clear();
             _near = null;
+            _talked.Clear();
             if (_castRoot != null) Destroy(_castRoot);
             _castRoot = null;
         }
@@ -172,6 +195,7 @@ namespace BahalaNa.World
             sr.color = baseColor;
             WorldMap.SetDepth(sr, go.transform.position.y);
 
+            bool wasBlocked = _map.IsBlocked(cell.x, cell.y);
             _map.SetBlocked(cell.x, cell.y, true);
 
             _npcs.Add(new NpcInstance
@@ -181,6 +205,8 @@ namespace BahalaNa.World
                 Sr = sr,
                 BaseColor = baseColor,
                 BaseScale = go.transform.localScale,
+                Cell = cell,
+                CellWasBlocked = wasBlocked,
             });
         }
 
@@ -254,6 +280,67 @@ namespace BahalaNa.World
             return _standIn;
         }
 
+        // ------------------------------------------------------- guidance/HUD
+        /// <summary>
+        /// Picks the NPC the player should talk to next and pulses them so the
+        /// order of the chapter is obvious instead of guesswork.
+        /// </summary>
+        private void UpdateSuggestion()
+        {
+            _suggested = null;
+
+            // Prefer someone not yet talked to this chapter.
+            foreach (var n in _npcs)
+                if (!_talked.Contains(n.Def.Id)) { _suggested = n; break; }
+
+            // Everyone has been talked to — reuse the first one.
+            if (_suggested == null && _npcs.Count > 0) _suggested = _npcs[0];
+
+            // Pulse the suggested NPC's scale so the eye finds them.
+            _pulse += Time.deltaTime * 3f;
+            float k = 1f + Mathf.Sin(_pulse) * 0.05f;
+
+            foreach (var n in _npcs)
+            {
+                if (n.Go == null) continue;
+                bool isSuggested = n == _suggested;
+                n.Go.transform.localScale = isSuggested
+                    ? new Vector3(n.BaseScale.x * k, n.BaseScale.y, n.BaseScale.z)
+                    : n.BaseScale;
+            }
+        }
+
+        private void UpdateHud()
+        {
+            if (GameApp.Game == null || GameApp.Game.Run == null) return;
+
+            if (_hud == null)
+            {
+                var go = new GameObject("WorldHud");
+                go.transform.SetParent(transform, false);
+                _hud = go.AddComponent<WorldHud>();
+            }
+
+            var run = GameApp.Game.Run;
+            string chapterName = GameManager.ChapterName(run.chapter, GameApp.Lang);
+            string progress = (run.cardIndex + 1) + "/" + run.deck.Count;
+
+            string hint;
+            if (_suggested != null && !_talked.Contains(_suggested.Def.Id))
+            {
+                string who = GameApp.Lang == "tl" ? _suggested.Def.DisplayName : _suggested.Def.DisplayNameEn;
+                hint = GameApp.Lang == "tl" ? "Kausapin si " + who : "Talk to " + who;
+            }
+            else if (_suggested != null)
+            {
+                string who = GameApp.Lang == "tl" ? _suggested.Def.DisplayName : _suggested.Def.DisplayNameEn;
+                hint = GameApp.Lang == "tl" ? "Bumalik kay " + who : "Back to " + who;
+            }
+            else hint = "";
+
+            _hud.Set(chapterName, progress, hint, InteractKey.ToString());
+        }
+
         // ----------------------------------------------------------- proximity
         private void RefreshNearest()
         {
@@ -290,6 +377,7 @@ namespace BahalaNa.World
         {
             SetHighlight(npc, false);
             _near = null;
+            _talked.Add(npc.Def.Id);
 
             if (GameApp.Game == null || GameApp.Game.CurrentCard == null)
             {
@@ -297,6 +385,7 @@ namespace BahalaNa.World
                 return;
             }
 
+            if (_hud != null) _hud.SetVisible(false);
             if (_boot != null) _boot.HideWorldForEncounter();
 
             var ui = GameApp.UI;
@@ -325,5 +414,6 @@ namespace BahalaNa.World
                 if (_boot != null) _boot.ShowWorldAfterEncounter();
             }
         }
+
     }
 }
